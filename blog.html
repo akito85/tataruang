@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #f4efe6;
+      color: #171310;
+      font-family: 'Archivo', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: #c2542b; }
+    ::selection { background: #c2542b; color: #f4efe6; }
+  </style>
+</helmet>
+
+<div style="position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference;color:#f4efe6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(20px,4vw,56px);pointer-events:none">
+  <a href="index.html" style="pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;color:#f4efe6">TATARUANG</a>
+  <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em">
+    <a href="index.html#layanan" style="color:#f4efe6" style-hover="color:#c2542b">LAYANAN</a>
+    <a href="index.html#portofolio" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
+    <a href="about.html" style="color:#f4efe6" style-hover="color:#c2542b">TENTANG</a>
+    <a href="blog.html" style="color:#c2542b">BLOG</a>
+    <a href="contact.html" style="color:#f4efe6;border:1px solid rgba(244,239,230,0.5);padding:9px 16px 8px" style-hover="background:#f4efe6;color:#171310">HITUNG RAB ↗</a>
+  </div>
+</div>
+
+<section data-screen-label="Blog Hero" style="position:relative;padding:clamp(140px,20vh,200px) clamp(20px,4vw,56px) clamp(44px,6vw,72px);overflow:clip">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(to right, rgba(23,19,16,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(23,19,16,0.05) 1px, transparent 1px);background-size:72px 72px"></div>
+  <div style="position:relative">
+    <p data-hero-fade style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 22px;display:flex;align-items:center;gap:12px"><span style="display:inline-block;width:34px;height:1px;background:#c2542b"></span>Jurnal — Catatan dari lapangan</p>
+    <h1 data-split style="font-family:'Fraunces',Georgia,serif;font-weight:380;font-size:clamp(3rem,9vw,7.5rem);line-height:0.95;letter-spacing:-0.02em;margin:0">
+      <span data-split-line style="display:block;overflow:clip;padding-bottom:0.06em">Membaca ruang,</span>
+      <span data-split-line style="display:block;overflow:clip;padding-bottom:0.08em">menghitung <em style="font-style:italic;color:#c2542b">biaya.</em></span>
+    </h1>
+    <div data-hero-fade style="margin-top:clamp(26px,4vh,40px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px">
+      <p style="max-width:32rem;font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.75;color:rgba(23,19,16,0.65);margin:0">Panduan biaya, tips renovasi, dan inspirasi desain — ditulis dari pengalaman ribuan proyek, bukan teori.</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(23,19,16,0.45);margin:0">{{ jumlahArtikel }} artikel — diperbarui berkala</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Filter & Daftar Artikel" style="padding:0 0 clamp(80px,10vw,140px)">
+  <div data-hero-fade style="display:flex;flex-wrap:wrap;gap:10px;padding:0 clamp(20px,4vw,56px) clamp(28px,4vw,44px)">
+    <sc-for list="{{ kategoriChips }}" as="k" hint-placeholder-count="4">
+      <button onClick="{{ k.pilih }}" style="{{ k.gaya }}">{{ k.label }}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ adaUnggulan }}" hint-placeholder-val="{{ true }}">
+    <a href="#" data-hero-fade style="display:block;margin:0 clamp(20px,4vw,56px) clamp(28px,4vw,44px);border:1px solid rgba(23,19,16,0.25);padding:clamp(28px,4vw,52px);position:relative;background:#171310;color:#f4efe6;transition:background 0.4s" style-hover="color:#f4efe6">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:22px">
+        <span style="color:#c2542b">Terbaru — {{ unggulan.katUpper }}</span>
+        <span style="color:rgba(244,239,230,0.5)">{{ unggulan.tglFmt }} — {{ unggulan.menit }} MNT BACA</span>
+      </div>
+      <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.9rem,4.4vw,3.6rem);line-height:1.06;letter-spacing:-0.015em;margin:0;max-width:24ch">{{ unggulan.judul }}</h2>
+      <p style="margin:20px 0 0;max-width:44rem;font-size:15px;line-height:1.75;color:rgba(244,239,230,0.7)">{{ unggulan.ringkasan }}</p>
+      <span style="display:inline-flex;align-items:center;gap:10px;margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b">BACA ARTIKEL →</span>
+    </a>
+  </sc-if>
+
+  <div style="border-bottom:1px solid rgba(23,19,16,0.16)">
+    <sc-for list="{{ artikel }}" as="p" hint-placeholder-count="4">
+      <a href="#" style="display:grid;grid-template-columns:clamp(90px,10vw,140px) 1fr clamp(120px,14vw,190px) 48px;align-items:baseline;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,32px) clamp(20px,4vw,56px);color:#171310;transition:background 0.35s" style-hover="background:#eae2d3;color:#171310">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;color:#c2542b">{{ p.katUpper }}</span>
+        <span>
+          <span style="display:block;font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.25rem,2.4vw,1.9rem);line-height:1.15">{{ p.judul }}</span>
+          <span style="display:block;margin-top:8px;font-size:14px;line-height:1.65;color:rgba(23,19,16,0.6);max-width:60ch">{{ p.ringkasan }}</span>
+        </span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:rgba(23,19,16,0.5);justify-self:end;text-align:right">{{ p.tglFmt }}<br>{{ p.menit }} MNT</span>
+        <span style="font-size:20px;color:#c2542b;justify-self:end">→</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section data-screen-label="Penutup" style="background:#171310;color:#f4efe6;padding:clamp(64px,9vw,110px) clamp(20px,4vw,56px) 0">
+  <div style="text-align:center;position:relative;padding-bottom:clamp(56px,8vw,96px)">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:0 0 22px">Sudah cukup membaca?</p>
+    <a href="contact.html" style="display:inline-block;font-family:'Fraunces',Georgia,serif;font-weight:380;font-size:clamp(2.4rem,7vw,5.5rem);line-height:1;letter-spacing:-0.02em;color:#f4efe6;transition:color 0.35s" style-hover="color:#c2542b">Hitung RAB Anda<span style="display:inline-block;transform:translateY(-0.06em);padding-left:0.12em">→</span></a>
+  </div>
+  <footer style="border-top:1px solid rgba(244,239,230,0.16);padding:clamp(28px,4vw,44px) 0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;color:rgba(244,239,230,0.4)">
+    <span>© 2026 TATARUANG — PT TATA RUANG INDONESIA</span>
+    <div style="display:flex;gap:24px">
+      <a href="index.html" style="color:rgba(244,239,230,0.55)" style-hover="color:#c2542b">BERANDA</a>
+      <a href="about.html" style="color:rgba(244,239,230,0.55)" style-hover="color:#c2542b">TENTANG</a>
+      <a href="contact.html" style="color:rgba(244,239,230,0.55)" style-hover="color:#c2542b">KONTAK</a>
+    </div>
+  </footer>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { data: null, kat: 'Semua' };
+
+  componentDidMount() {
+    this.loadData();
+    const t0 = Date.now();
+    const poll = () => {
+      if (window.gsap && window.ScrollTrigger) this.initGsap();
+      else if (Date.now() - t0 < 9000) setTimeout(poll, 90);
+    };
+    poll();
+  }
+
+  componentWillUnmount() {
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach((t) => t.kill());
+  }
+
+  async loadData() {
+    try {
+      const mod = await import(new URL('tataruang-data.js', document.baseURI).href);
+      this.setState({ data: mod });
+    } catch (e) {
+      console.warn('Gagal memuat data konten:', e);
+    }
+  }
+
+  initGsap() {
+    if (this._gsapInit) return;
+    this._gsapInit = true;
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    document.querySelectorAll('[data-split-line]').forEach((line) => {
+      const frag = document.createDocumentFragment();
+      const splitNode = (node, target) => {
+        if (node.nodeType === 3) {
+          node.textContent.split('').forEach((ch) => {
+            const s = document.createElement('span');
+            s.setAttribute('data-char', '');
+            s.style.display = 'inline-block';
+            s.style.whiteSpace = 'pre';
+            s.textContent = ch;
+            target.appendChild(s);
+          });
+        } else if (node.nodeType === 1) {
+          const clone = node.cloneNode(false);
+          Array.from(node.childNodes).forEach((c) => splitNode(c, clone));
+          target.appendChild(clone);
+        }
+      };
+      Array.from(line.childNodes).forEach((n) => splitNode(n, frag));
+      line.innerHTML = '';
+      line.appendChild(frag);
+    });
+    const chars = document.querySelectorAll('[data-char]');
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    if (chars.length) tl.from(chars, { yPercent: 115, duration: 1.1, stagger: 0.02 }, 0.1);
+    tl.from('[data-hero-fade]', { autoAlpha: 0, y: 24, duration: 0.9, stagger: 0.1 }, 0.55);
+  }
+
+  renderVals() {
+    const d = this.state.data;
+    const kat = this.state.kat;
+    const posts = d ? d.posts : [];
+    const fmt = d ? d.formatTanggal : (x) => x;
+    const kats = ['Semua', ...Array.from(new Set(posts.map((p) => p.kategori)))];
+    const gayaDasar = {
+      fontFamily: "'IBM Plex Mono', monospace",
+      fontSize: '11px',
+      letterSpacing: '0.16em',
+      textTransform: 'uppercase',
+      padding: '10px 18px 9px',
+      cursor: 'pointer',
+      transition: 'all 0.3s',
+      background: 'transparent',
+      border: '1px solid rgba(23,19,16,0.3)',
+      color: '#171310',
+    };
+    const kategoriChips = kats.map((k) => ({
+      label: k.toUpperCase(),
+      pilih: () => this.setState({ kat: k }),
+      gaya: k === kat
+        ? { ...gayaDasar, background: '#c2542b', border: '1px solid #c2542b', color: '#f4efe6' }
+        : gayaDasar,
+    }));
+    const terpilih = posts.filter((p) => kat === 'Semua' || p.kategori === kat);
+    const map = (p) => ({
+      ...p,
+      katUpper: p.kategori.toUpperCase(),
+      tglFmt: fmt(p.tanggal),
+    });
+    const unggulan = terpilih.length ? map(terpilih[0]) : null;
+    return {
+      jumlahArtikel: posts.length || '—',
+      kategoriChips,
+      adaUnggulan: !!unggulan,
+      unggulan: unggulan || {},
+      artikel: terpilih.slice(1).map(map),
+    };
+  }
+}
+</script>
+</body>
+</html>

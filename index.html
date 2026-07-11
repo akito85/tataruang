@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Archivo:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: #171310;
+      color: #f4efe6;
+      font-family: 'Archivo', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.055;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: #c2542b; }
+    ::selection { background: #c2542b; color: #f4efe6; }
+    @keyframes tt-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes tt-blink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0; } }
+  </style>
+</helmet>
+
+<div style="position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference;color:#f4efe6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(20px,4vw,56px);pointer-events:none">
+  <a href="#atas" style="pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;color:#f4efe6">TATARUANG</a>
+  <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em">
+    <a href="#layanan" style="color:#f4efe6" style-hover="color:#c2542b">LAYANAN</a>
+    <a href="#portofolio" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
+    <a href="about.html" style="color:#f4efe6" style-hover="color:#c2542b">TENTANG</a>
+    <a href="blog.html" style="color:#f4efe6" style-hover="color:#c2542b">BLOG</a>
+    <a href="contact.html" style="color:#f4efe6;border:1px solid rgba(244,239,230,0.5);padding:9px 16px 8px" style-hover="background:#f4efe6;color:#171310">HITUNG RAB ↗</a>
+  </div>
+</div>
+
+<section id="atas" data-screen-label="Hero" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:clip;background:#171310">
+  <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 78% 30%, rgba(194,84,43,0.16), transparent 55%)"></div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(to right, rgba(244,239,230,0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(244,239,230,0.055) 1px, transparent 1px);background-size:72px 72px"></div>
+  <div data-three style="position:absolute;inset:0;pointer-events:none"></div>
+  <span style="position:absolute;top:96px;left:clamp(20px,4vw,56px);font-family:'IBM Plex Mono',monospace;font-size:13px;color:rgba(244,239,230,0.35)">+</span>
+  <span style="position:absolute;top:96px;right:clamp(20px,4vw,56px);font-family:'IBM Plex Mono',monospace;font-size:13px;color:rgba(244,239,230,0.35)">+</span>
+  <span data-hero-fade style="position:absolute;top:112px;right:clamp(20px,4vw,56px);writing-mode:vertical-rl;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.3em;color:rgba(244,239,230,0.45);text-transform:uppercase">Denah № 214 / 2026 — Kemang, Jakarta Selatan</span>
+
+  <div style="position:relative;padding:120px clamp(20px,4vw,56px) 0">
+    <p data-hero-fade style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 22px;display:flex;align-items:center;gap:12px">
+      <span style="display:inline-block;width:34px;height:1px;background:#c2542b"></span>
+      Platform Renovasi &amp; Tukang<span data-caret style="animation:tt-blink 1.1s steps(1) infinite">_</span>
+    </p>
+    <h1 data-split style="font-family:'Fraunces',Georgia,serif;font-weight:380;font-size:clamp(3.4rem,11.5vw,10.5rem);line-height:0.93;letter-spacing:-0.02em;margin:0;color:#f4efe6;font-optical-sizing:auto">
+      <span data-split-line style="display:block;overflow:clip;padding-bottom:0.06em">Menata Ulang</span>
+      <span data-split-line style="display:block;overflow:clip;padding-bottom:0.08em"><em style="font-style:italic;color:#c2542b">Ruang</em> Anda.</span>
+    </h1>
+    <div data-hero-fade style="margin-top:clamp(28px,4vh,48px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px">
+      <p style="max-width:34rem;font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.75;color:rgba(244,239,230,0.72);margin:0">Estimasi biaya renovasi instan, transparan, dan terukur. Dari dapur mungil hingga fasad komersial — kami hitung dulu, baru bangun.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="https://wa.me/6281234567890" style="display:inline-flex;align-items:center;gap:12px;background:#c2542b;color:#f4efe6;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.18em;padding:18px 28px;transition:background 0.3s" style-hover="background:#9c3f1d;color:#f4efe6">HITUNG RAB →</a>
+        <a href="#portofolio" style="display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(244,239,230,0.35);color:#f4efe6;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.18em;padding:18px 28px;transition:border-color 0.3s" style-hover="border-color:#f4efe6;color:#f4efe6">LIHAT PORTOFOLIO</a>
+      </div>
+    </div>
+  </div>
+
+  <div data-hero-fade style="position:relative;margin-top:clamp(28px,5vh,52px);border-top:1px solid rgba(244,239,230,0.18);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 32px;padding:16px clamp(20px,4vw,56px) 22px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.5)">
+    <span>Skala 1 : 50</span>
+    <span>Ruang Keluarga — 48 m²</span>
+    <span>Proyek selesai: 1.240+</span>
+    <span>Gulir untuk membaca denah ↓</span>
+  </div>
+</section>
+
+<div data-screen-label="Strip Proses" style="background:#c2542b;overflow:clip;border-top:1px solid rgba(23,19,16,0.2);border-bottom:1px solid rgba(23,19,16,0.2)">
+  <div data-marquee style="display:flex;width:max-content;animation:tt-slide 26s linear infinite" style-hover="animation-play-state:paused">
+    <div style="display:flex;align-items:baseline;white-space:nowrap;padding:18px 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(1.6rem,3vw,2.6rem);color:#f4efe6">
+      <span style="padding:0 28px">Ukur</span><span style="color:#171310">—</span><span style="padding:0 28px;font-style:italic">Hitung</span><span style="color:#171310">—</span><span style="padding:0 28px">Sepakati</span><span style="color:#171310">—</span><span style="padding:0 28px;font-style:italic">Kerjakan</span><span style="color:#171310">—</span><span style="padding:0 28px">Dokumentasikan</span><span style="color:#171310">—</span>
+    </div>
+    <div aria-hidden="true" style="display:flex;align-items:baseline;white-space:nowrap;padding:18px 0;font-family:'Fraunces',Georgia,serif;font-size:clamp(1.6rem,3vw,2.6rem);color:#f4efe6">
+      <span style="padding:0 28px">Ukur</span><span style="color:#171310">—</span><span style="padding:0 28px;font-style:italic">Hitung</span><span style="color:#171310">—</span><span style="padding:0 28px">Sepakati</span><span style="color:#171310">—</span><span style="padding:0 28px;font-style:italic">Kerjakan</span><span style="color:#171310">—</span><span style="padding:0 28px">Dokumentasikan</span><span style="color:#171310">—</span>
+    </div>
+  </div>
+</div>
+
+<section id="layanan" data-screen-label="Layanan" style="background:#f4efe6;color:#171310;padding:clamp(72px,10vw,130px) 0 0">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;padding:0 clamp(20px,4vw,56px) clamp(36px,5vw,64px)">
+    <div data-reveal>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Layanan — 01</p>
+      <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:16ch">Satu pintu untuk setiap pekerjaan ruang</h2>
+    </div>
+    <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(23,19,16,0.5);margin:0">Enam bidang — satu RAB</p>
+  </div>
+
+  <div data-reveal style="border-bottom:1px solid rgba(23,19,16,0.16)">
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 01</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Renovasi Rumah</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Renovasi menyeluruh dari struktur hingga finishing, dengan RAB transparan sebelum pekerjaan dimulai.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 02</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Renovasi Dapur</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Dapur fungsional dan tahan lama: tata letak, kitchen set, instalasi air dan gas dikerjakan satu pintu.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 03</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Renovasi Kamar Mandi</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Waterproofing benar sejak awal, sanitair terpasang rapi, selesai dalam hitungan hari — bukan bulan.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 04</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Cat &amp; Finishing</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Pengecatan interior-eksterior dan finishing detail yang membuat ruang lama terasa baru dalam hitungan hari.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 05</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Tukang Harian</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Butuh perbaikan kecil hari ini? Pesan tukang harian terverifikasi dengan tarif per hari yang jelas.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+    <div data-srow style="display:grid;grid-template-columns:clamp(48px,7vw,96px) 1.1fr 1.3fr 48px;align-items:center;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(20px,3vw,34px) clamp(20px,4vw,56px);cursor:pointer;color:#171310;transition:background 0.4s,color 0.4s">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#c2542b">/ 06</span>
+      <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.5rem,3.2vw,2.6rem);margin:0;color:inherit">Desain Interior</h3>
+      <p style="font-size:14.5px;line-height:1.65;margin:0;color:inherit;opacity:0.62;max-width:44ch">Dari moodboard hingga gambar kerja — desain yang siap dieksekusi tim renovasi tanpa terjemahan ulang.</p>
+      <span data-arrow style="font-size:22px;color:#c2542b;transition:transform 0.4s;justify-self:end">→</span>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Angka" style="background:#171310;color:#f4efe6;padding:clamp(72px,10vw,120px) clamp(20px,4vw,56px)">
+  <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 42px">TATARUANG dalam angka — 02</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:clamp(28px,4vw,56px)">
+    <div data-reveal style="border-top:1px solid rgba(244,239,230,0.2);padding-top:22px">
+      <p style="font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(3rem,6vw,5.4rem);line-height:1;margin:0"><span data-count="1240">1.240</span><span style="color:#c2542b">+</span></p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:14px 0 0">Proyek selesai</p>
+    </div>
+    <div data-reveal style="border-top:1px solid rgba(244,239,230,0.2);padding-top:22px">
+      <p style="font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(3rem,6vw,5.4rem);line-height:1;margin:0"><span data-count="18">18</span></p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:14px 0 0">Kota terlayani</p>
+    </div>
+    <div data-reveal style="border-top:1px solid rgba(244,239,230,0.2);padding-top:22px">
+      <p style="font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(3rem,6vw,5.4rem);line-height:1;margin:0"><span data-count="4.8" data-dec="1">4,8</span><span style="color:#c2542b;font-size:0.4em;vertical-align:0.9em"> ★</span></p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:14px 0 0">Rating rata-rata</p>
+    </div>
+    <div data-reveal style="border-top:1px solid rgba(244,239,230,0.2);padding-top:22px">
+      <p style="font-family:'Fraunces',Georgia,serif;font-weight:340;font-size:clamp(3rem,6vw,5.4rem);line-height:1;margin:0"><span data-count="9">9</span><span style="color:#c2542b">thn</span></p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:14px 0 0">Pengalaman</p>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Kutipan" style="background:#f4efe6;color:#171310;padding:clamp(90px,14vw,180px) clamp(20px,4vw,56px);position:relative;overflow:clip">
+  <div style="position:absolute;inset:0;background-image:linear-gradient(to right, rgba(23,19,16,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(23,19,16,0.05) 1px, transparent 1px);background-size:72px 72px"></div>
+  <div style="position:relative;max-width:1100px;margin:0 auto;text-align:center">
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 30px">Prinsip kerja — 03</p>
+    <p data-scrub style="font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:380;font-size:clamp(1.9rem,4.6vw,3.9rem);line-height:1.22;letter-spacing:-0.01em;margin:0">Tidak ada garis yang digambar sebelum pertanyaan selesai diajukan.</p>
+    <div style="margin:36px auto 0;position:relative;height:1px;background:rgba(23,19,16,0.3);width:min(320px,60%)">
+      <span style="position:absolute;left:0;top:-4px;width:1px;height:9px;background:#171310"></span>
+      <span style="position:absolute;right:0;top:-4px;width:1px;height:9px;background:#171310"></span>
+    </div>
+    <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(23,19,16,0.5);margin:16px 0 0">Prinsip kerja studio kami</p>
+  </div>
+</section>
+
+<section id="portofolio" data-screen-label="Portofolio" style="background:#f4efe6;color:#171310;border-top:1px solid rgba(23,19,16,0.16);padding:clamp(72px,10vw,130px) clamp(20px,4vw,56px)">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:clamp(40px,5vw,64px)">
+    <div data-reveal>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Portofolio — 04</p>
+      <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:16ch">Sebelum dan sesudah, tanpa filter</h2>
+    </div>
+    <p data-reveal style="max-width:22rem;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62);margin:0">Setiap proyek kami dokumentasikan apa adanya. Tarik garis pembatas untuk melihat transformasinya.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:clamp(24px,3vw,44px)">
+    <sc-for list="{{ proyek }}" as="p" hint-placeholder-count="4">
+      <figure style="margin:0">
+        <div data-ba style="position:relative;aspect-ratio:4/3;overflow:clip;border:1px solid rgba(23,19,16,0.2);touch-action:pan-y;cursor:ew-resize;user-select:none">
+          <div style="position:absolute;inset:0;background:#e4dac6;background-image:repeating-linear-gradient(45deg, transparent 0 12px, rgba(23,19,16,0.045) 12px 13px);display:flex;align-items:center;justify-content:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;color:rgba(23,19,16,0.55)">{{ p.labelSesudah }}</span></div>
+          <div data-ba-before style="position:absolute;inset:0;clip-path:inset(0 50% 0 0);background:#b8ad99;background-image:repeating-linear-gradient(45deg, transparent 0 12px, rgba(23,19,16,0.07) 12px 13px);display:flex;align-items:center;justify-content:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.2em;color:rgba(23,19,16,0.6)">{{ p.labelSebelum }}</span></div>
+          <div data-ba-handle style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:#c2542b;transform:translateX(-1px)"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;background:#c2542b;color:#f4efe6;display:flex;align-items:center;justify-content:center;font-size:13px;letter-spacing:-1px">↔</span></div>
+          <span style="position:absolute;left:12px;bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:rgba(23,19,16,0.55)">SEBELUM</span>
+          <span style="position:absolute;right:12px;bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:rgba(23,19,16,0.55)">SESUDAH</span>
+        </div>
+        <figcaption style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:16px">
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:1.45rem">{{ p.judul }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;color:rgba(23,19,16,0.5)">{{ p.meta }}</span>
+        </figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section id="tentang" data-screen-label="Tentang" style="background:#f4efe6;color:#171310;border-top:1px solid rgba(23,19,16,0.16);padding:clamp(72px,10vw,130px) clamp(20px,4vw,56px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+    <div data-reveal>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Tentang TATARUANG — 05</p>
+      <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.1rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-0.015em;margin:0">Kami percaya renovasi dimulai dari <em style="font-style:italic;color:#c2542b">angka yang jujur</em></h2>
+      <p style="margin:26px 0 0;max-width:36rem;font-size:15.5px;line-height:1.8;color:rgba(23,19,16,0.68)">TATARUANG lahir dari satu keresahan: biaya renovasi yang tidak pernah jelas di awal. Kami membangun mesin estimasi RAB yang menghitung material, upah, dan durasi secara deterministik — sehingga kepercayaan terbentuk sebelum pekerjaan dimulai.</p>
+    </div>
+    <div style="display:flex;flex-direction:column">
+      <div data-reveal style="border-top:1px solid rgba(23,19,16,0.16);padding:24px 0;display:grid;grid-template-columns:100px 1fr;gap:18px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b;padding-top:4px">P/01</span>
+        <div>
+          <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.5rem;margin:0 0 8px">Transparan</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62)">RAB dirinci per item pekerjaan dan material. Anda tahu ke mana setiap rupiah pergi, sebelum menyetujui apa pun.</p>
+        </div>
+      </div>
+      <div data-reveal style="border-top:1px solid rgba(23,19,16,0.16);padding:24px 0;display:grid;grid-template-columns:100px 1fr;gap:18px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b;padding-top:4px">P/02</span>
+        <div>
+          <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.5rem;margin:0 0 8px">Terukur</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62)">Estimasi dihitung mesin dari data harga yang diperbarui, bukan tebakan mandor. Rentang ±10% selalu diungkap di muka.</p>
+        </div>
+      </div>
+      <div data-reveal style="border-top:1px solid rgba(23,19,16,0.16);border-bottom:1px solid rgba(23,19,16,0.16);padding:24px 0;display:grid;grid-template-columns:100px 1fr;gap:18px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b;padding-top:4px">P/03</span>
+        <div>
+          <h3 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.5rem;margin:0 0 8px">Terpercaya</h3>
+          <p style="margin:0;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62)">Tukang terverifikasi identitas dan keterampilan, progres difoto harian, dan pembayaran ditahan hingga tahap disetujui.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimoni" data-screen-label="Testimoni & Penutup" style="background:#171310;color:#f4efe6;padding:clamp(72px,10vw,120px) 0 0;overflow:clip">
+  <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 42px;padding:0 clamp(20px,4vw,56px)">Kata mereka — 06</p>
+  <div data-testi style="display:flex;width:max-content;gap:20px;padding:0 0 8px;animation:tt-slide 58s linear infinite" style-hover="animation-play-state:paused">
+    <div style="display:flex;gap:20px">
+      <sc-for list="{{ testimoni }}" as="t" hint-placeholder-count="5">
+        <blockquote style="margin:0;width:380px;flex-shrink:0;border:1px solid rgba(244,239,230,0.16);padding:30px;display:flex;flex-direction:column;gap:22px"><p style="margin:0;font-size:16px;line-height:1.75;color:rgba(244,239,230,0.85)">&#8220;{{ t.kutipan }}&#8221;</p><footer style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase"><span style="color:#c2542b">{{ t.nama }}</span><span style="color:rgba(244,239,230,0.45)"> — {{ t.meta }}</span></footer></blockquote>
+      </sc-for>
+    </div>
+    <div aria-hidden="true" style="display:flex;gap:20px">
+      <sc-for list="{{ testimoni }}" as="t" hint-placeholder-count="5">
+        <blockquote style="margin:0;width:380px;flex-shrink:0;border:1px solid rgba(244,239,230,0.16);padding:30px;display:flex;flex-direction:column;gap:22px"><p style="margin:0;font-size:16px;line-height:1.75;color:rgba(244,239,230,0.85)">&#8220;{{ t.kutipan }}&#8221;</p><footer style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase"><span style="color:#c2542b">{{ t.nama }}</span><span style="color:rgba(244,239,230,0.45)"> — {{ t.meta }}</span></footer></blockquote>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:clamp(80px,12vw,160px) clamp(20px,4vw,56px) 0;text-align:center;position:relative">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(to right, rgba(244,239,230,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(244,239,230,0.04) 1px, transparent 1px);background-size:72px 72px;pointer-events:none"></div>
+    <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(244,239,230,0.5);margin:0 0 26px;position:relative">Siap menata ulang?</p>
+    <a data-reveal href="https://wa.me/6281234567890" style="position:relative;display:inline-block;font-family:'Fraunces',Georgia,serif;font-weight:380;font-size:clamp(2.8rem,9vw,8rem);line-height:1;letter-spacing:-0.02em;color:#f4efe6;transition:color 0.35s" style-hover="color:#c2542b">Hitung RAB Anda<span style="display:inline-block;transform:translateY(-0.06em);padding-left:0.12em">→</span></a>
+    <p data-reveal style="position:relative;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,239,230,0.4);margin:26px 0 0">Gratis — estimasi keluar dalam hitungan menit</p>
+  </div>
+
+  <footer style="margin-top:clamp(80px,10vw,140px);border-top:1px solid rgba(244,239,230,0.16);padding:clamp(36px,5vw,56px) clamp(20px,4vw,56px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px 48px">
+      <div>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;margin:0 0 12px">TATARUANG</p>
+        <p style="margin:0;font-size:13.5px;line-height:1.7;color:rgba(244,239,230,0.5);max-width:24rem">Menata ulang ruang Anda — renovasi terukur dengan RAB transparan.</p>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;line-height:2.2;color:rgba(244,239,230,0.6)">
+        <p style="margin:0">JL. KEMANG RAYA NO. 12</p>
+        <p style="margin:0">JAKARTA SELATAN 12730</p>
+        <p style="margin:0">SENIN–SABTU, 08.00–18.00 WIB</p>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;line-height:2.2;display:flex;flex-direction:column">
+        <a href="mailto:halo@tataruang.id" style="color:rgba(244,239,230,0.6)" style-hover="color:#c2542b">HALO@TATARUANG.ID</a>
+        <a href="tel:+622150912345" style="color:rgba(244,239,230,0.6)" style-hover="color:#c2542b">+62 21 5091 2345</a>
+        <a href="https://instagram.com/tataruang.id" style="color:rgba(244,239,230,0.6)" style-hover="color:#c2542b">INSTAGRAM ↗</a>
+        <a href="https://linkedin.com/company/tataruang" style="color:rgba(244,239,230,0.6)" style-hover="color:#c2542b">LINKEDIN ↗</a>
+      </div>
+    </div>
+    <div style="margin-top:clamp(32px,4vw,48px);border-top:1px solid rgba(244,239,230,0.1);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;color:rgba(244,239,230,0.35)">
+      <span>© 2026 TATARUANG — PT TATA RUANG INDONESIA</span>
+      <span>DENAH № 214 / 2026 — SKALA 1 : 50</span>
+    </div>
+  </footer>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;scene3d&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Hero&quot; },
+  &quot;animasi&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;penuh&quot;, &quot;options&quot;: [&quot;penuh&quot;, &quot;halus&quot;, &quot;minim&quot;], &quot;tsType&quot;: &quot;'penuh' | 'halus' | 'minim'&quot;, &quot;section&quot;: &quot;Gerak&quot; },
+  &quot;kecepatanMarquee&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 26, &quot;min&quot;: 10, &quot;max&quot;: 60, &quot;step&quot;: 1, &quot;unit&quot;: &quot;s&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Gerak&quot; }
+}">
+class Component extends DCLogic {
+  componentDidMount() {
+    this._killers = [];
+    this._raf = null;
+    this.wireHovers();
+    this.wireBeforeAfter();
+    this.applyMarqueeSpeed();
+    this.loadData();
+
+    const t0 = Date.now();
+    const pollGsap = () => {
+      if (window.gsap && window.ScrollTrigger) this.initGsap();
+      else if (Date.now() - t0 < 9000) setTimeout(pollGsap, 90);
+    };
+    pollGsap();
+
+    const pollThree = () => {
+      if (this.props.scene3d === false) return;
+      if (window.THREE) this.initThree();
+      else if (Date.now() - t0 < 9000) setTimeout(pollThree, 90);
+    };
+    pollThree();
+  }
+
+  componentDidUpdate() {
+    this.applyMarqueeSpeed();
+    this.wireBeforeAfter();
+    const holder = document.querySelector('[data-three]');
+    if (this.props.scene3d === false && holder && holder.firstChild) {
+      if (this._raf) cancelAnimationFrame(this._raf);
+      holder.innerHTML = '';
+      this._threeInit = false;
+    } else if (this.props.scene3d !== false && window.THREE && !this._threeInit) {
+      this.initThree();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach((t) => t.kill());
+    this._killers.forEach((k) => k());
+  }
+
+  async loadData() {
+    try {
+      const mod = await import(new URL('tataruang-data.js', document.baseURI).href);
+      this.setState({ data: mod });
+    } catch (e) {
+      console.warn('Gagal memuat data konten:', e);
+    }
+  }
+
+  applyMarqueeSpeed() {
+    const s = this.props.kecepatanMarquee ?? 26;
+    const m = document.querySelector('[data-marquee]');
+    if (m) m.style.animationDuration = s + 's';
+    const t = document.querySelector('[data-testi]');
+    if (t) t.style.animationDuration = s * 2.2 + 's';
+  }
+
+  wireHovers() {
+    document.querySelectorAll('[data-srow]').forEach((row) => {
+      const arrow = row.querySelector('[data-arrow]');
+      const enter = () => {
+        row.style.background = '#171310';
+        row.style.color = '#f4efe6';
+        if (arrow) arrow.style.transform = 'translateX(8px)';
+      };
+      const leave = () => {
+        row.style.background = 'transparent';
+        row.style.color = '#171310';
+        if (arrow) arrow.style.transform = 'translateX(0)';
+      };
+      row.addEventListener('mouseenter', enter);
+      row.addEventListener('mouseleave', leave);
+      this._killers.push(() => {
+        row.removeEventListener('mouseenter', enter);
+        row.removeEventListener('mouseleave', leave);
+      });
+    });
+  }
+
+  wireBeforeAfter() {
+    document.querySelectorAll('[data-ba]').forEach((box) => {
+      if (box.__ttWired) return;
+      box.__ttWired = true;
+      const before = box.querySelector('[data-ba-before]');
+      const handle = box.querySelector('[data-ba-handle]');
+      if (!before || !handle) return;
+      let dragging = false;
+      const set = (clientX) => {
+        const r = box.getBoundingClientRect();
+        const p = Math.max(4, Math.min(96, ((clientX - r.left) / r.width) * 100));
+        before.style.clipPath = 'inset(0 ' + (100 - p) + '% 0 0)';
+        handle.style.left = p + '%';
+      };
+      const down = (e) => { dragging = true; box.setPointerCapture(e.pointerId); set(e.clientX); };
+      const move = (e) => { if (dragging) set(e.clientX); };
+      const up = () => { dragging = false; };
+      box.addEventListener('pointerdown', down);
+      box.addEventListener('pointermove', move);
+      box.addEventListener('pointerup', up);
+      box.addEventListener('pointercancel', up);
+      this._killers.push(() => {
+        box.removeEventListener('pointerdown', down);
+        box.removeEventListener('pointermove', move);
+        box.removeEventListener('pointerup', up);
+        box.removeEventListener('pointercancel', up);
+      });
+    });
+  }
+
+  initGsap() {
+    if (this._gsapInit) return;
+    this._gsapInit = true;
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mode = this.props.animasi ?? 'penuh';
+    if (reduce || mode === 'minim') return;
+
+    // Hero: split heading chars and reveal
+    document.querySelectorAll('[data-split-line]').forEach((line) => {
+      const frag = document.createDocumentFragment();
+      const splitNode = (node, target) => {
+        if (node.nodeType === 3) {
+          node.textContent.split('').forEach((ch) => {
+            const s = document.createElement('span');
+            s.setAttribute('data-char', '');
+            s.style.display = 'inline-block';
+            s.style.whiteSpace = 'pre';
+            s.textContent = ch;
+            target.appendChild(s);
+          });
+        } else if (node.nodeType === 1) {
+          const clone = node.cloneNode(false);
+          Array.from(node.childNodes).forEach((c) => splitNode(c, clone));
+          target.appendChild(clone);
+        }
+      };
+      Array.from(line.childNodes).forEach((n) => splitNode(n, frag));
+      line.innerHTML = '';
+      line.appendChild(frag);
+    });
+    const chars = document.querySelectorAll('[data-char]');
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    if (chars.length) {
+      tl.from(chars, { yPercent: 115, duration: 1.15, stagger: 0.024 }, 0.15);
+    }
+    tl.from('[data-hero-fade]', { autoAlpha: 0, y: 26, duration: 1, stagger: 0.12 }, 0.7);
+
+    // Scroll reveals
+    if (mode === 'penuh') {
+      document.querySelectorAll('[data-reveal]').forEach((el) => {
+        gsap.from(el, {
+          y: 40, autoAlpha: 0, duration: 1.05, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' },
+        });
+      });
+    }
+
+    // Counters
+    document.querySelectorAll('[data-count]').forEach((el) => {
+      const target = parseFloat(el.getAttribute('data-count'));
+      const dec = el.getAttribute('data-dec') ? 1 : 0;
+      const obj = { v: 0 };
+      gsap.to(obj, {
+        v: target, duration: 2.1, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' },
+        onUpdate: () => {
+          el.textContent = obj.v.toLocaleString('id-ID', {
+            minimumFractionDigits: dec, maximumFractionDigits: dec,
+          });
+        },
+      });
+    });
+
+    // Quote word scrub
+    const quote = document.querySelector('[data-scrub]');
+    if (quote) {
+      const words = quote.textContent.split(' ');
+      quote.innerHTML = '';
+      words.forEach((w, i) => {
+        const s = document.createElement('span');
+        s.textContent = w + (i < words.length - 1 ? ' ' : '');
+        s.style.opacity = '0.13';
+        quote.appendChild(s);
+      });
+      gsap.to(quote.children, {
+        opacity: 1, stagger: 0.6, ease: 'none',
+        scrollTrigger: { trigger: quote, start: 'top 80%', end: 'top 30%', scrub: true },
+      });
+    }
+  }
+
+  initThree() {
+    const holder = document.querySelector('[data-three]');
+    if (!holder || !window.THREE || this._threeInit) return;
+    this._threeInit = true;
+    const THREE = window.THREE;
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(32, holder.clientWidth / Math.max(1, holder.clientHeight), 0.1, 100);
+    cam.position.set(7, 4.6, 9);
+    cam.lookAt(0, 1.1, 0);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(holder.clientWidth, holder.clientHeight);
+    holder.appendChild(renderer.domElement);
+
+    const g = new THREE.Group();
+    g.position.set(2.1, 0, 0);
+    g.scale.setScalar(0.82);
+    scene.add(g);
+
+    const grid = new THREE.GridHelper(20, 40, 0x453b30, 0x282018);
+    g.add(grid);
+
+    const seg = (pairs, color, opacity) => {
+      const pts = [];
+      pairs.forEach((p) => pts.push(new THREE.Vector3(p[0], p[1], p[2])));
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity });
+      const l = new THREE.LineSegments(geo, mat);
+      g.add(l);
+      return l;
+    };
+
+    const W = 2, D = 1.4, H = 2, R = 2.9;
+    // Main volume: floor, walls, top
+    const main = [];
+    const fc = [[-W, 0, -D], [W, 0, -D], [W, 0, D], [-W, 0, D]];
+    for (let i = 0; i < 4; i++) {
+      const a = fc[i], b = fc[(i + 1) % 4];
+      main.push(a, b); // floor
+      main.push([a[0], H, a[2]], [b[0], H, b[2]]); // top
+      main.push(a, [a[0], H, a[2]]); // post
+    }
+    // Roof slopes
+    main.push([-W, H, -D], [-W, R, 0]);
+    main.push([-W, H, D], [-W, R, 0]);
+    main.push([W, H, -D], [W, R, 0]);
+    main.push([W, H, D], [W, R, 0]);
+    seg(main, 0xf4efe6, 0.5);
+
+    // Accent: ridge + door frame
+    const accent = [
+      [-W, R, 0], [W, R, 0],
+      [0.5, 0, D], [0.5, 1.6, D],
+      [1.15, 0, D], [1.15, 1.6, D],
+      [0.5, 1.6, D], [1.15, 1.6, D],
+    ];
+    seg(accent, 0xc2542b, 0.9);
+
+    // Annex volume
+    const annex = [];
+    const ac = [[W, 0, -0.9], [3.3, 0, -0.9], [3.3, 0, 0.5], [W, 0, 0.5]];
+    for (let i = 0; i < 4; i++) {
+      const a = ac[i], b = ac[(i + 1) % 4];
+      annex.push(a, b);
+      annex.push([a[0], 1.5, a[2]], [b[0], 1.5, b[2]]);
+      annex.push(a, [a[0], 1.5, a[2]]);
+    }
+    seg(annex, 0xf4efe6, 0.3);
+
+    // Interior plan lines
+    seg([
+      [-0.5, 0.01, -D], [-0.5, 0.01, D],
+      [-0.5, 0.01, 0.2], [W, 0.01, 0.2],
+    ], 0xf4efe6, 0.18);
+
+    let mx = 0, my = 0;
+    const onMove = (e) => {
+      mx = (e.clientX / window.innerWidth) * 2 - 1;
+      my = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+    window.addEventListener('pointermove', onMove);
+    this._killers.push(() => window.removeEventListener('pointermove', onMove));
+
+    const ro = new ResizeObserver(() => {
+      const w = holder.clientWidth, h = Math.max(1, holder.clientHeight);
+      cam.aspect = w / h;
+      cam.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+    ro.observe(holder);
+    this._killers.push(() => ro.disconnect());
+
+    let auto = -0.4, scl = 0.82;
+    const loop = () => {
+      auto += 0.0011;
+      const targetY = auto + mx * 0.22 + window.scrollY * 0.0006;
+      const targetX = my * 0.05;
+      g.rotation.y += (targetY - g.rotation.y) * 0.045;
+      g.rotation.x += (targetX - g.rotation.x) * 0.045;
+      scl += (1 - scl) * 0.02;
+      g.scale.setScalar(scl);
+      renderer.render(scene, cam);
+      this._raf = requestAnimationFrame(loop);
+    };
+    loop();
+    this._killers.push(() => renderer.dispose());
+  }
+
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
