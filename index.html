@@ -49,7 +49,7 @@
   <p style="display:flex;justify-content:space-between;width:min(320px,60vw);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;color:rgba(244,239,230,0.45);margin:0"><span>MEMUAT DENAH</span><span data-loader-pct>0%</span></p>
 </div>
 
-<div style="position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference;color:#f4efe6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(20px,4vw,56px);pointer-events:none">
+<div data-header style="position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference;color:#f4efe6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(20px,4vw,56px);pointer-events:none;transition:background-color 0.35s ease,backdrop-filter 0.35s ease,border-color 0.35s ease">
   <a href="#atas" style="pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;color:#f4efe6">TATARUANG</a>
   <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em">
     <a href="#layanan" style="color:#f4efe6" style-hover="color:#c2542b">LAYANAN</a>
@@ -331,6 +331,7 @@ class Component extends DCLogic {
     this._raf = null;
     this.wireHovers();
     this.wireBeforeAfter();
+    this.wireHeaderScroll();
     this.applyMarqueeSpeed();
     this.loadData();
 
@@ -375,7 +376,23 @@ class Component extends DCLogic {
   componentWillUnmount() {
     if (this._raf) cancelAnimationFrame(this._raf);
     if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach((t) => t.kill());
+    window.removeEventListener('scroll', this._onHeaderScroll);
     this._killers.forEach((k) => k());
+  }
+
+  wireHeaderScroll() {
+    const header = document.querySelector('[data-header]');
+    if (!header) return;
+    const onScroll = () => {
+      const scrolled = window.scrollY > 24;
+      header.style.background = scrolled ? 'rgba(23,19,16,0.92)' : 'transparent';
+      header.style.backdropFilter = scrolled ? 'blur(8px)' : 'none';
+      header.style.mixBlendMode = scrolled ? 'normal' : 'difference';
+      header.style.borderBottom = scrolled ? '1px solid rgba(244,239,230,0.08)' : 'none';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    this._onHeaderScroll = onScroll;
   }
 
   async loadData() {
