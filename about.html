@@ -43,7 +43,7 @@
   <a href="index.html" style="pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;color:#f4efe6">TATARUANG</a>
   <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em">
     <a href="index.html#layanan" style="color:#f4efe6" style-hover="color:#c2542b">LAYANAN</a>
-    <a href="index.html#portofolio" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
+    <a href="portfolio.html" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
     <a href="about.html" style="color:#c2542b">TENTANG</a>
     <a href="blog.html" style="color:#f4efe6" style-hover="color:#c2542b">BLOG</a>
     <a href="contact.html" style="color:#f4efe6;border:1px solid rgba(244,239,230,0.5);padding:9px 16px 8px" style-hover="background:#f4efe6;color:#171310">HITUNG RAB ↗</a>
@@ -225,7 +225,7 @@ class Component extends DCLogic {
     cam.position.set(4.5, 7.5, 7);
     cam.lookAt(0, 0, 0);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(holder.clientWidth, holder.clientHeight);
     holder.appendChild(renderer.domElement);
 
@@ -292,6 +292,7 @@ class Component extends DCLogic {
 
     let auto = -0.3, scl = 0.82;
     const loop = () => {
+      if (!this._threeRunning) return;
       auto += 0.0009;
       g.rotation.y += ((auto + mx * 0.2 + window.scrollY * 0.0005) - g.rotation.y) * 0.045;
       g.rotation.x += ((my * 0.04) - g.rotation.x) * 0.045;
@@ -300,8 +301,26 @@ class Component extends DCLogic {
       renderer.render(scene, cam);
       this._raf = requestAnimationFrame(loop);
     };
-    loop();
-    this._killers.push(() => renderer.dispose());
+    const startLoop = () => { if (!this._threeRunning) { this._threeRunning = true; loop(); } };
+    const stopLoop = () => {
+      this._threeRunning = false;
+      if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; }
+    };
+    let heroVis = true;
+    const sync = () => {
+      if (heroVis && document.visibilityState === 'visible') startLoop();
+      else stopLoop();
+    };
+    const io = new IntersectionObserver((en) => { heroVis = en[0].isIntersecting; sync(); });
+    io.observe(holder);
+    document.addEventListener('visibilitychange', sync);
+    this._killers.push(() => {
+      io.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+      stopLoop();
+      renderer.dispose();
+    });
+    sync();
   }
 
   renderVals() {

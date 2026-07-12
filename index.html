@@ -41,11 +41,19 @@
   </style>
 </helmet>
 
+<div data-loader style="position:fixed;inset:0;z-index:120;background:#171310;color:#f4efe6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px">
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:clamp(13px,1.6vw,16px);letter-spacing:0.5em;margin:0;padding-left:0.5em">TATARUANG</p>
+  <div style="width:min(320px,60vw);height:1px;background:rgba(244,239,230,0.18);position:relative">
+    <div data-loader-bar style="position:absolute;left:0;top:-0.5px;bottom:-0.5px;width:100%;background:#c2542b;transform:scaleX(0);transform-origin:left"></div>
+  </div>
+  <p style="display:flex;justify-content:space-between;width:min(320px,60vw);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.2em;color:rgba(244,239,230,0.45);margin:0"><span>MEMUAT DENAH</span><span data-loader-pct>0%</span></p>
+</div>
+
 <div style="position:fixed;top:0;left:0;right:0;z-index:60;mix-blend-mode:difference;color:#f4efe6;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(20px,4vw,56px);pointer-events:none">
   <a href="#atas" style="pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.34em;font-weight:500;color:#f4efe6">TATARUANG</a>
   <div style="display:flex;align-items:center;gap:clamp(14px,2.4vw,32px);pointer-events:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em">
     <a href="#layanan" style="color:#f4efe6" style-hover="color:#c2542b">LAYANAN</a>
-    <a href="#portofolio" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
+    <a href="portfolio.html" style="color:#f4efe6" style-hover="color:#c2542b">PORTOFOLIO</a>
     <a href="about.html" style="color:#f4efe6" style-hover="color:#c2542b">TENTANG</a>
     <a href="blog.html" style="color:#f4efe6" style-hover="color:#c2542b">BLOG</a>
     <a href="contact.html" style="color:#f4efe6;border:1px solid rgba(244,239,230,0.5);padding:9px 16px 8px" style-hover="background:#f4efe6;color:#171310">HITUNG RAB ↗</a>
@@ -187,7 +195,10 @@
       <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Portofolio — 04</p>
       <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:16ch">Sebelum dan sesudah, tanpa filter</h2>
     </div>
-    <p data-reveal style="max-width:22rem;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62);margin:0">Setiap proyek kami dokumentasikan apa adanya. Tarik garis pembatas untuk melihat transformasinya.</p>
+    <div data-reveal style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+      <p style="max-width:22rem;font-size:14.5px;line-height:1.7;color:rgba(23,19,16,0.62);margin:0">Setiap proyek kami dokumentasikan apa adanya. Tarik garis pembatas untuk melihat transformasinya.</p>
+      <a href="portfolio.html" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b;border-bottom:1px solid #c2542b;padding-bottom:4px">SEMUA PROYEK →</a>
+    </div>
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:clamp(24px,3vw,44px)">
@@ -209,10 +220,30 @@
   </div>
 </section>
 
+<section id="jurnal" data-screen-label="Jurnal" style="background:#f4efe6;color:#171310;border-top:1px solid rgba(23,19,16,0.16);padding:clamp(72px,10vw,130px) 0">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;padding:0 clamp(20px,4vw,56px);margin-bottom:clamp(32px,4vw,52px)">
+    <div data-reveal>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Jurnal — 05</p>
+      <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.02;letter-spacing:-0.015em;margin:0;max-width:16ch">Catatan dari lapangan</h2>
+    </div>
+    <a data-reveal href="blog.html" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.18em;color:#c2542b;border-bottom:1px solid #c2542b;padding-bottom:4px">SEMUA ARTIKEL →</a>
+  </div>
+  <div data-reveal style="border-bottom:1px solid rgba(23,19,16,0.16)">
+    <sc-for list="{{ artikelTerbaru }}" as="p" hint-placeholder-count="3">
+      <a href="blog.html" style="display:grid;grid-template-columns:clamp(90px,10vw,140px) 1fr clamp(110px,12vw,170px) 48px;align-items:baseline;gap:clamp(12px,2.5vw,32px);border-top:1px solid rgba(23,19,16,0.16);padding:clamp(18px,2.6vw,28px) clamp(20px,4vw,56px);color:#171310;transition:background 0.35s" style-hover="background:#eae2d3;color:#171310">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;color:#c2542b">{{ p.katUpper }}</span>
+        <span style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1.2">{{ p.judul }}</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:rgba(23,19,16,0.5);justify-self:end;text-align:right">{{ p.tglFmt }}</span>
+        <span style="font-size:20px;color:#c2542b;justify-self:end">→</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
 <section id="tentang" data-screen-label="Tentang" style="background:#f4efe6;color:#171310;border-top:1px solid rgba(23,19,16,0.16);padding:clamp(72px,10vw,130px) clamp(20px,4vw,56px)">
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:clamp(32px,5vw,72px);align-items:start">
     <div data-reveal>
-      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Tentang TATARUANG — 05</p>
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 18px">Tentang TATARUANG — 06</p>
       <h2 style="font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(2.1rem,4.4vw,3.8rem);line-height:1.05;letter-spacing:-0.015em;margin:0">Kami percaya renovasi dimulai dari <em style="font-style:italic;color:#c2542b">angka yang jujur</em></h2>
       <p style="margin:26px 0 0;max-width:36rem;font-size:15.5px;line-height:1.8;color:rgba(23,19,16,0.68)">TATARUANG lahir dari satu keresahan: biaya renovasi yang tidak pernah jelas di awal. Kami membangun mesin estimasi RAB yang menghitung material, upah, dan durasi secara deterministik — sehingga kepercayaan terbentuk sebelum pekerjaan dimulai.</p>
     </div>
@@ -243,7 +274,7 @@
 </section>
 
 <section id="testimoni" data-screen-label="Testimoni & Penutup" style="background:#171310;color:#f4efe6;padding:clamp(72px,10vw,120px) 0 0;overflow:clip">
-  <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 42px;padding:0 clamp(20px,4vw,56px)">Kata mereka — 06</p>
+  <p data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#c2542b;margin:0 0 42px;padding:0 clamp(20px,4vw,56px)">Kata mereka — 07</p>
   <div data-testi style="display:flex;width:max-content;gap:20px;padding:0 0 8px;animation:tt-slide 58s linear infinite" style-hover="animation-play-state:paused">
     <div style="display:flex;gap:20px">
       <sc-for list="{{ testimoni }}" as="t" hint-placeholder-count="5">
@@ -302,6 +333,16 @@ class Component extends DCLogic {
     this.wireBeforeAfter();
     this.applyMarqueeSpeed();
     this.loadData();
+
+    // Fallback: hide loader even if GSAP never arrives
+    setTimeout(() => {
+      const l = document.querySelector('[data-loader]');
+      if (l && !this._loaderDone) {
+        l.style.transition = 'opacity 0.4s';
+        l.style.opacity = '0';
+        setTimeout(() => { l.style.display = 'none'; }, 450);
+      }
+    }, 3000);
 
     const t0 = Date.now();
     const pollGsap = () => {
@@ -413,6 +454,34 @@ class Component extends DCLogic {
     gsap.registerPlugin(window.ScrollTrigger);
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mode = this.props.animasi ?? 'penuh';
+
+    // Loader intro (always resolves, even in reduced/minim mode)
+    const loader = document.querySelector('[data-loader]');
+    let heroDelay = 0.15;
+    if (loader && loader.style.display !== 'none') {
+      this._loaderDone = true;
+      if (reduce || mode === 'minim') {
+        loader.style.display = 'none';
+      } else {
+        heroDelay = 1.35;
+        const bar = loader.querySelector('[data-loader-bar]');
+        const pct = loader.querySelector('[data-loader-pct]');
+        const obj = { v: 0 };
+        const ltl = gsap.timeline();
+        ltl.to(obj, {
+          v: 100, duration: 1.0, ease: 'power2.inOut',
+          onUpdate: () => {
+            if (pct) pct.textContent = Math.round(obj.v) + '%';
+            if (bar) bar.style.transform = 'scaleX(' + obj.v / 100 + ')';
+          },
+        }, 0.1);
+        ltl.to(loader, {
+          yPercent: -100, duration: 0.65, ease: 'power4.inOut',
+          onComplete: () => { loader.style.display = 'none'; },
+        }, '+=0.05');
+      }
+    }
+    this._heroDelay = heroDelay;
     if (reduce || mode === 'minim') return;
 
     // Hero: split heading chars and reveal
@@ -440,10 +509,11 @@ class Component extends DCLogic {
     });
     const chars = document.querySelectorAll('[data-char]');
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    const d0 = this._heroDelay || 0.15;
     if (chars.length) {
-      tl.from(chars, { yPercent: 115, duration: 1.15, stagger: 0.024 }, 0.15);
+      tl.from(chars, { yPercent: 115, duration: 1.15, stagger: 0.024 }, d0);
     }
-    tl.from('[data-hero-fade]', { autoAlpha: 0, y: 26, duration: 1, stagger: 0.12 }, 0.7);
+    tl.from('[data-hero-fade]', { autoAlpha: 0, y: 26, duration: 1, stagger: 0.12 }, d0 + 0.55);
 
     // Scroll reveals
     if (mode === 'penuh') {
@@ -500,7 +570,7 @@ class Component extends DCLogic {
     cam.position.set(7, 4.6, 9);
     cam.lookAt(0, 1.1, 0);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(holder.clientWidth, holder.clientHeight);
     holder.appendChild(renderer.domElement);
 
@@ -584,6 +654,7 @@ class Component extends DCLogic {
 
     let auto = -0.4, scl = 0.82;
     const loop = () => {
+      if (!this._threeRunning) return;
       auto += 0.0011;
       const targetY = auto + mx * 0.22 + window.scrollY * 0.0006;
       const targetX = my * 0.05;
@@ -594,12 +665,41 @@ class Component extends DCLogic {
       renderer.render(scene, cam);
       this._raf = requestAnimationFrame(loop);
     };
-    loop();
-    this._killers.push(() => renderer.dispose());
+    // CPU friendly: only animate while hero is on screen and tab is visible
+    const startLoop = () => { if (!this._threeRunning) { this._threeRunning = true; loop(); } };
+    const stopLoop = () => {
+      this._threeRunning = false;
+      if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; }
+    };
+    let heroVis = true;
+    const sync = () => {
+      if (heroVis && document.visibilityState === 'visible') startLoop();
+      else stopLoop();
+    };
+    const io = new IntersectionObserver((en) => { heroVis = en[0].isIntersecting; sync(); });
+    io.observe(holder);
+    document.addEventListener('visibilitychange', sync);
+    this._killers.push(() => {
+      io.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+      stopLoop();
+      renderer.dispose();
+    });
+    sync();
   }
 
   renderVals() {
-    return {};
+    const d = (this.state || {}).data;
+    const fmt = d ? d.formatTanggal : ((x) => x);
+    return {
+      proyek: (d ? d.projects : []).slice(0, 2),
+      testimoni: d ? d.testimonials : [],
+      artikelTerbaru: (d ? d.posts : []).slice(0, 3).map((p) => ({
+        ...p,
+        katUpper: p.kategori.toUpperCase(),
+        tglFmt: fmt(p.tanggal),
+      })),
+    };
   }
 }
 </script>
