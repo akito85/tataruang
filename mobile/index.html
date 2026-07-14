@@ -4,14 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<template id="__bundler_thumbnail" data-bg-color="#171310">
-  <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-    <rect x="30" y="30" width="60" height="60" fill="none" stroke="#f4efe6" stroke-width="2"/>
-    <line x1="30" y1="58" x2="68" y2="58" stroke="#f4efe6" stroke-width="2"/>
-    <line x1="68" y1="58" x2="68" y2="90" stroke="#f4efe6" stroke-width="2"/>
-    <circle cx="49" cy="75" r="5" fill="none" stroke="#c2542b" stroke-width="2"/>
-  </svg>
-</template>
 </head>
 <body>
 <x-dc>
@@ -23,8 +15,8 @@
 <style>
   html, body { margin: 0; padding: 0; background: #171310; }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  a { color: #c2542b; text-decoration: none; }
-  a:hover { color: #9c3f1d; }
+  a { color: #b0472e; text-decoration: none; }
+  a:hover { color: #863421; }
   input, textarea, button, select { font-family: 'Archivo', sans-serif; }
   input:focus, textarea:focus { outline: 1.5px solid #171310; }
   ::-webkit-scrollbar { display: none; }
@@ -36,6 +28,9 @@
   @keyframes ttSweep { 0% { transform: translateY(-70px); opacity: 0; } 12% { opacity: 1; } 55% { transform: translateY(250px); opacity: 0; } 100% { transform: translateY(250px); opacity: 0; } }
   @keyframes ttNudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
   @keyframes ttSpinSlow { to { transform: rotate(360deg); } }
+  @keyframes ttReveal { 0%, 100% { width: 34%; } 50% { width: 70%; } }
+  .tt-inspo-row { scrollbar-width: none; -ms-overflow-style: none; }
+  .tt-inspo-row::-webkit-scrollbar { display: none; }
   @keyframes ttBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
   @keyframes ttFadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes ttDraw { to { stroke-dashoffset: 0; } }
@@ -44,6 +39,11 @@
   @keyframes ttSheetUp { from { transform: translateY(100%); } to { transform: none; } }
   @keyframes ttPop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.07); } 100% { transform: scale(1); opacity: 1; } }
   @keyframes ttToast { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes ttGridPan { from { background-position: 0 0, 0 0; } to { background-position: 44px 44px, 44px 44px; } }
+  @keyframes ttFloatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+  @keyframes ttFloatY2 { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(12px) rotate(6deg); } }
+  @keyframes ttGlow { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.12); } }
+  @keyframes ttAcc { from { opacity: 0; transform: translateY(-6px) scaleY(0.82); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition: none !important; } }
   @media (max-width: 480px) {
     #tt-stage { padding: 0 !important; background: #f4efe6 !important; display: block !important; }
@@ -51,6 +51,7 @@
     .tt-caption { display: none !important; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </helmet>
 
 <div id="tt-stage" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 44px 20px; background-color: #171310; background-image: linear-gradient(rgba(244,239,230,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,230,0.045) 1px, transparent 1px); background-size: 48px 48px;">
@@ -79,28 +80,52 @@
             <circle cx="88" cy="88" r="84" stroke="rgba(244,239,230,0.28)" stroke-width="1" stroke-dasharray="4 8"></circle>
           </svg>
           <svg width="176" height="176" viewBox="0 0 176 176" fill="none" style="position: absolute; inset: 0; animation: ttSpinSlow 28s linear infinite reverse;">
-            <circle cx="88" cy="88" r="68" stroke="rgba(194,84,43,0.55)" stroke-width="1" stroke-dasharray="1 11"></circle>
+            <circle cx="88" cy="88" r="68" stroke="rgba(176,71,46,0.55)" stroke-width="1" stroke-dasharray="1 11"></circle>
           </svg>
           <svg width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="#f4efe6" stroke-width="1" style="opacity: 0.9;">
             <rect x="20" y="20" width="80" height="80" stroke-dasharray="320" stroke-dashoffset="320" style="animation: ttDraw 1.2s ease forwards;"></rect>
             <line x1="20" y1="58" x2="70" y2="58" stroke-dasharray="50" stroke-dashoffset="50" style="animation: ttDraw 0.7s 0.7s ease forwards;"></line>
             <line x1="70" y1="58" x2="70" y2="100" stroke-dasharray="42" stroke-dashoffset="42" style="animation: ttDraw 0.6s 1s ease forwards;"></line>
-            <circle cx="45" cy="80" r="6" stroke="#c2542b" stroke-dasharray="38" stroke-dashoffset="38" style="animation: ttDraw 0.5s 1.3s ease forwards;"></circle>
+            <circle cx="45" cy="80" r="6" stroke="#b0472e" stroke-dasharray="38" stroke-dashoffset="38" style="animation: ttDraw 0.5s 1.3s ease forwards;"></circle>
           </svg>
         </div>
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 21px; letter-spacing: 0.5em; padding-left: 0.5em; font-weight: 500; animation: ttRise 0.7s 0.25s cubic-bezier(0.16, 0.8, 0.24, 1) both;">TATARUANG</div>
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.3em; opacity: 0.5; margin-top: 12px; animation: ttRise 0.7s 0.4s cubic-bezier(0.16, 0.8, 0.24, 1) both;">PLATFORM RENOVASI — DENAH № 214 / 2026</div>
         <div style="width: 180px; height: 2px; background: rgba(244,239,230,0.15); margin-top: 48px; animation: ttFadeIn 0.6s 0.5s ease both;">
-          <div style="height: 2px; background: #c2542b; width: {{ splashW }};"></div>
+          <div style="height: 2px; background: #b0472e; width: {{ splashW }};"></div>
         </div>
-        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; opacity: 0.7; margin-top: 14px; animation: ttFadeIn 0.6s 0.5s ease both;">MEMUAT DENAH … {{ splashPct }}%<span style="display: inline-block; width: 6px; height: 11px; background: #c2542b; margin-left: 8px; vertical-align: -1px; animation: ttBlink 1s steps(1) infinite;"></span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.22em; opacity: 0.7; margin-top: 14px; animation: ttFadeIn 0.6s 0.5s ease both;">MEMUAT DENAH … {{ splashPct }}%<span style="display: inline-block; width: 6px; height: 11px; background: #b0472e; margin-left: 8px; vertical-align: -1px; animation: ttBlink 1s steps(1) infinite;"></span></div>
       </div>
     </sc-if>
 
     <!-- ============ S-02 LOGIN ============ -->
     <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
       <div data-screen-label="S-02 Login" style="position: absolute; inset: 0; background: #f4efe6; color: #171310; overflow-y: auto; animation: ttScreenIn 0.38s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
-        <div style="padding: 84px 24px 40px; display: flex; flex-direction: column; min-height: 100%;">
+        <div style="position: absolute; inset: 0; min-height: 100%; pointer-events: none; overflow: hidden;">
+          <div style="position: absolute; inset: -44px; background-image: linear-gradient(rgba(23,19,16,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(23,19,16,0.05) 1px, transparent 1px); background-size: 44px 44px; animation: ttGridPan 9s linear infinite;"></div>
+          <div style="position: absolute; top: -130px; right: -130px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(176,71,46,0.16) 0%, rgba(176,71,46,0) 68%); animation: ttGlow 7s ease-in-out infinite;"></div>
+          <svg width="320" height="320" viewBox="0 0 320 320" fill="none" style="position: absolute; top: -110px; right: -110px; animation: ttSpinSlow 26s linear infinite;">
+            <circle cx="160" cy="160" r="150" stroke="rgba(176,71,46,0.35)" stroke-width="1" stroke-dasharray="4 9"></circle>
+            <circle cx="160" cy="160" r="112" stroke="rgba(23,19,16,0.14)" stroke-width="1" stroke-dasharray="1 10"></circle>
+          </svg>
+          <svg width="260" height="260" viewBox="0 0 260 260" fill="none" style="position: absolute; bottom: -100px; left: -110px; animation: ttSpinSlow 34s linear infinite reverse;">
+            <circle cx="130" cy="130" r="120" stroke="rgba(23,19,16,0.16)" stroke-width="1" stroke-dasharray="5 10"></circle>
+            <circle cx="130" cy="130" r="86" stroke="rgba(176,71,46,0.28)" stroke-width="1" stroke-dasharray="1 9"></circle>
+          </svg>
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="rgba(23,19,16,0.13)" stroke-width="1" style="position: absolute; top: 168px; right: 22px; animation: ttFloatY 6s ease-in-out infinite;">
+            <rect x="10" y="10" width="52" height="52"></rect>
+            <line x1="10" y1="35" x2="42" y2="35"></line>
+            <line x1="42" y1="35" x2="42" y2="62"></line>
+            <circle cx="26" cy="50" r="4" stroke="rgba(176,71,46,0.4)"></circle>
+          </svg>
+          <div style="position: absolute; top: 120px; left: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(176,71,46,0.5); animation: ttFloatY 5s 0.6s ease-in-out infinite;">+</div>
+          <div style="position: absolute; top: 300px; right: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(23,19,16,0.25); animation: ttFloatY2 7s ease-in-out infinite;">+</div>
+          <div style="position: absolute; bottom: 210px; left: 30px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(23,19,16,0.2); animation: ttFloatY 8s 1.2s ease-in-out infinite;">+</div>
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 70px; overflow: hidden;">
+            <div style="position: absolute; left: 0; right: 0; height: 46px; background: linear-gradient(180deg, rgba(176,71,46,0) 0%, rgba(176,71,46,0.07) 50%, rgba(176,71,46,0) 100%); animation: ttSweep 7s 1s ease-in-out infinite;"></div>
+          </div>
+        </div>
+        <div style="position: relative; z-index: 1; padding: 84px 24px 40px; display: flex; flex-direction: column; min-height: 100%;">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.28em; color: #9a8f7c; animation: ttRise 0.45s 0.02s cubic-bezier(0.16, 0.8, 0.24, 1) both;">TATARUANG / MASUK</div>
           <h1 style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 34px; line-height: 1.12; margin: 18px 0 36px; text-wrap: pretty; animation: ttRise 0.5s 0.08s cubic-bezier(0.16, 0.8, 0.24, 1) both;">Masuk untuk mulai menghitung.</h1>
           <div style="animation: ttRise 0.5s 0.14s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
@@ -111,22 +136,73 @@
             <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">KATA SANDI</label>
             <input type="password" placeholder="••••••••" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px; margin-bottom: 10px;">
             <div style="display: flex; justify-content: flex-end; margin-bottom: 22px;">
-              <button onClick="{{ goLupa }}" style="background: none; border: none; padding: 4px 0; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; color: #c2542b;">LUPA KATA SANDI?</button>
+              <button onClick="{{ goLupa }}" style="background: none; border: none; padding: 4px 0; cursor: pointer; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; color: #b0472e;">LUPA KATA SANDI?</button>
             </div>
           </div>
-          <button onClick="{{ goHome }}" style="width: 100%; padding: 17px; background: #c2542b; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.26s cubic-bezier(0.16, 0.8, 0.24, 1) both; transition: transform 0.2s;" style-hover="background: #9c3f1d;" style-active="transform: scale(0.98);">MASUK</button>
+          <button onClick="{{ goHome }}" style="width: 100%; padding: 17px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.26s cubic-bezier(0.16, 0.8, 0.24, 1) both; transition: transform 0.2s;" style-hover="background: #863421;" style-active="transform: scale(0.98);">MASUK</button>
           <div style="display: flex; align-items: center; gap: 14px; margin: 26px 0; animation: ttFadeIn 0.5s 0.32s ease both;">
             <div style="flex: 1; height: 1px; background: #d8cdb8;"></div>
             <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.26em; color: #9a8f7c;">ATAU</span>
             <div style="flex: 1; height: 1px; background: #d8cdb8;"></div>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px; animation: ttRise 0.5s 0.38s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
-            <button onClick="{{ goOtp }}" style="width: 100%; padding: 15px; background: transparent; color: #171310; border: 1px solid #171310; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px;" style-hover="background: #ece5d6;" style-active="transform: scale(0.98);">Masuk dengan Nomor HP</button>
-            <button onClick="{{ goHome }}" style="width: 100%; padding: 15px; background: transparent; color: #171310; border: 1px solid #171310; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px;" style-hover="background: #ece5d6;" style-active="transform: scale(0.98);">Lanjutkan dengan Google</button>
-            <button onClick="{{ goHome }}" style="width: 100%; padding: 15px; background: transparent; color: #171310; border: 1px solid #d8cdb8; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px;" style-hover="background: #ece5d6;" style-active="transform: scale(0.98);">Lanjutkan dengan Apple</button>
-            <button onClick="{{ goHome }}" style="width: 100%; padding: 15px; background: transparent; color: #171310; border: 1px solid #d8cdb8; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px;" style-hover="background: #ece5d6;" style-active="transform: scale(0.98);">Lanjutkan dengan Facebook</button>
+            <button onClick="{{ goOtp }}" style="width: 100%; padding: 14px 15px; background: #171310; color: #f4efe6; border: 1px solid #171310; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.15s, background 0.15s;" style-hover="background: #2e2822;" style-active="transform: scale(0.98);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#b0472e"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
+              Masuk dengan Nomor HP
+            </button>
+            <button onClick="{{ goHome }}" style="width: 100%; padding: 14px 15px; background: #ffffff; color: #3c4043; border: 1px solid #dadce0; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.06); transition: transform 0.15s, box-shadow 0.15s;" style-hover="box-shadow: 0 3px 10px rgba(0,0,0,0.1); transform: translateY(-1px);" style-active="transform: scale(0.98);">
+              <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path></svg>
+              Lanjutkan dengan Google
+            </button>
+            <button onClick="{{ goHome }}" style="width: 100%; padding: 14px 15px; background: #000000; color: #ffffff; border: 1px solid #000000; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.15s, background 0.15s;" style-hover="background: #1c1c1e;" style-active="transform: scale(0.98);">
+              <svg width="17" height="20" viewBox="0 0 17 21" fill="#ffffff" style="margin-top: -2px;"><path d="M14.14 11.05c-.03-2.89 2.36-4.28 2.47-4.35-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.72 1.13-4.72 2.86-2.01 3.49-.51 8.66 1.45 11.5.96 1.39 2.1 2.95 3.6 2.89 1.45-.06 1.99-.93 3.74-.93s2.24.93 3.77.9c1.56-.03 2.54-1.41 3.49-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.01-3.03-1.16-3.06-4.59z"></path><path d="M11.25 2.56c.8-.97 1.34-2.31 1.19-3.65-1.15.05-2.55.77-3.38 1.73-.74.86-1.39 2.23-1.22 3.54 1.29.1 2.6-.65 3.41-1.62z" transform="translate(0, 1.1)"></path></svg>
+              Lanjutkan dengan Apple
+            </button>
+            <button onClick="{{ goHome }}" style="width: 100%; padding: 14px 15px; background: #1877F2; color: #ffffff; border: 1px solid #1877F2; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; cursor: pointer; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.15s, background 0.15s;" style-hover="background: #166FE5;" style-active="transform: scale(0.98);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08V12h3.05V9.36c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.23 2.69.23v2.95h-1.51c-1.49 0-1.96.93-1.96 1.88V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 17.99 24 12z"></path></svg>
+              Lanjutkan dengan Facebook
+            </button>
           </div>
-          <div style="margin-top: auto; padding-top: 32px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #b8ad99; text-align: center; animation: ttFadeIn 0.6s 0.5s ease both;">RAB INSTAN · TUKANG HARIAN · BAYAR ONLINE</div>
+          <div style="margin-top: 26px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #9a8f7c; animation: ttFadeIn 0.6s 0.44s ease both;">BELUM PUNYA AKUN? <span onClick="{{ goDaftar }}" style="color: #b0472e; cursor: pointer; font-weight: 500;">DAFTAR</span></div>
+          <div style="margin-top: auto; padding-top: 28px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #b8ad99; text-align: center; animation: ttFadeIn 0.6s 0.5s ease both;">RAB INSTAN · TUKANG HARIAN · BAYAR ONLINE</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ S-06 DAFTAR ============ -->
+    <sc-if value="{{ isDaftar }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="S-06 Daftar" style="position: absolute; inset: 0; background: #f4efe6; color: #171310; overflow-y: auto; animation: ttScreenIn 0.38s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+        <div style="padding: 58px 24px 40px;">
+          <button onClick="{{ goLogin }}" style="background: none; border: none; padding: 8px 0; cursor: pointer; color: #171310; display: flex; align-items: center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5 L8 12 L15 19"></path></svg>
+          </button>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.28em; color: #9a8f7c; margin-top: 14px; animation: ttRise 0.45s 0.02s cubic-bezier(0.16, 0.8, 0.24, 1) both;">TATARUANG / DAFTAR</div>
+          <h1 style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 32px; line-height: 1.12; margin: 12px 0 8px; text-wrap: pretty; animation: ttRise 0.5s 0.08s cubic-bezier(0.16, 0.8, 0.24, 1) both;">Buat akun baru.</h1>
+          <p style="font-family: 'Archivo', sans-serif; font-size: 14px; color: #6f6656; margin: 0 0 28px; animation: ttRise 0.5s 0.12s cubic-bezier(0.16, 0.8, 0.24, 1) both;">Gratis — hitung RAB dan pesan tukang dalam satu aplikasi.</p>
+          <div style="display: flex; flex-direction: column; gap: 16px; animation: ttRise 0.5s 0.16s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+            <div>
+              <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">NAMA LENGKAP</label>
+              <input type="text" placeholder="Nama Anda" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px;">
+            </div>
+            <div>
+              <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">EMAIL</label>
+              <input type="email" placeholder="nama@email.com" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px;">
+            </div>
+            <div>
+              <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">NO. HP</label>
+              <input type="tel" placeholder="+62 8xx xxxx xxxx" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px;">
+            </div>
+            <div>
+              <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">KATA SANDI</label>
+              <input type="password" placeholder="Minimal 8 karakter" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px;">
+            </div>
+          </div>
+          <label style="display: flex; align-items: flex-start; gap: 10px; margin: 20px 0 4px; cursor: pointer; animation: ttRise 0.5s 0.2s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+            <input type="checkbox" style="margin-top: 3px; accent-color: #b0472e; width: 16px; height: 16px; flex: none;">
+            <span style="font-family: 'Archivo', sans-serif; font-size: 12.5px; color: #6f6656; line-height: 1.5;">Saya setuju dengan <a href="#/daftar">Ketentuan Layanan</a> dan <a href="#/daftar">Kebijakan Privasi</a> TATARUANG.</span>
+          </label>
+          <button onClick="{{ goHome }}" style="width: 100%; padding: 17px; margin-top: 18px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.26s cubic-bezier(0.16, 0.8, 0.24, 1) both; transition: transform 0.2s;" style-hover="background: #863421;" style-active="transform: scale(0.98);">DAFTAR SEKARANG</button>
+          <div style="text-align: center; margin-top: 22px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #9a8f7c; animation: ttFadeIn 0.6s 0.4s ease both;">SUDAH PUNYA AKUN? <span onClick="{{ goLogin }}" style="color: #b0472e; cursor: pointer; font-weight: 500;">MASUK</span></div>
         </div>
       </div>
     </sc-if>
@@ -146,12 +222,12 @@
               <label style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; display: block; margin-bottom: 8px;">EMAIL</label>
               <input type="email" placeholder="nama@email.com" value="{{ lupaV }}" onChange="{{ setLupa }}" style="width: 100%; padding: 15px 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-size: 15px; color: #171310; border-radius: 12px; margin-bottom: 24px;">
             </div>
-            <button onClick="{{ sendLupa }}" style="{{ lupaBtnSt }}" style-hover="background: #9c3f1d;" style-active="transform: scale(0.98);">KIRIM TAUTAN</button>
+            <button onClick="{{ sendLupa }}" style="{{ lupaBtnSt }}" style-hover="background: #863421;" style-active="transform: scale(0.98);">KIRIM TAUTAN</button>
           </sc-if>
           <sc-if value="{{ lupaSent }}" hint-placeholder-val="{{ false }}">
             <div style="border: 1px solid #d8cdb8; background: #fbf8f1; border-radius: 16px; padding: 24px 20px; margin-top: 20px; animation: ttScaleIn 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;">
               <div style="width: 46px; height: 46px; border-radius: 50%; background: #171310; color: #f4efe6; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; animation: ttPop 0.5s 0.1s cubic-bezier(0.2, 0.8, 0.3, 1.2) both;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="2"><path d="M4 12.5 L10 18 L20 6.5"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="2"><path d="M4 12.5 L10 18 L20 6.5"></path></svg>
               </div>
               <div style="font-family: 'Fraunces', serif; font-size: 21px; margin-bottom: 6px;">Tautan terkirim</div>
               <p style="font-family: 'Archivo', sans-serif; font-size: 13.5px; color: #6f6656; margin: 0;">Cek kotak masuk <strong>{{ lupaTo }}</strong>. Tautan berlaku 30 menit.</p>
@@ -185,7 +261,7 @@
               <button onClick="{{ setChSms }}" style="{{ chSmsSt }}">SMS</button>
             </div>
           </div>
-          <button onClick="{{ goHome }}" style="width: 100%; padding: 17px; background: #c2542b; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.34s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: #9c3f1d;" style-active="transform: scale(0.98);">VERIFIKASI</button>
+          <button onClick="{{ goHome }}" style="width: 100%; padding: 17px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.34s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: #863421;" style-active="transform: scale(0.98);">VERIFIKASI</button>
         </div>
       </div>
     </sc-if>
@@ -198,7 +274,7 @@
             <button onClick="{{ goAkun }}" style="width: 46px; height: 46px; border-radius: 50%; background: #171310; color: #f4efe6; border: none; cursor: pointer; font-family: 'Fraunces', serif; font-size: 17px; flex: none; display: flex; align-items: center; justify-content: center; padding: 0; transition: transform 0.2s;" style-active="transform: scale(0.92);">{{ pfInit }}</button>
             <div style="flex: 1; min-width: 0;">
               <div style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.22em; color: #9a8f7c; display: flex; align-items: center; gap: 6px;">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="2"><path d="M12 21 C12 21 5 14.5 5 9.5 A7 7 0 0 1 19 9.5 C19 14.5 12 21 12 21 Z"></path><circle cx="12" cy="9.5" r="2.4"></circle></svg>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="2"><path d="M12 21 C12 21 5 14.5 5 9.5 A7 7 0 0 1 19 9.5 C19 14.5 12 21 12 21 Z"></path><circle cx="12" cy="9.5" r="2.4"></circle></svg>
                 JAKARTA SELATAN
               </div>
               <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 24px; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Selamat pagi, {{ pfFirst }}</div>
@@ -209,15 +285,33 @@
             </button>
           </div>
 
-          <div onClick="{{ startRab }}" style="background: #171310; color: #f4efe6; padding: 26px 22px; border-radius: 16px; position: relative; cursor: pointer; overflow: hidden; animation: ttRise 0.55s 0.14s cubic-bezier(0.16, 0.8, 0.24, 1) both; transition: transform 0.25s;" style-hover="transform: translateY(-3px);" style-active="transform: scale(0.99);">
-            <div style="position: absolute; left: 0; right: 0; top: 0; height: 60px; background: linear-gradient(180deg, rgba(194,84,43,0), rgba(194,84,43,0.22), rgba(194,84,43,0)); animation: ttSweep 4.5s 1s ease-in-out infinite; pointer-events: none;"></div>
-            <div style="position: absolute; top: 10px; right: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.35;">+</div>
-            <div style="position: absolute; bottom: 10px; left: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.35;">+</div>
-            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(244,239,230,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,230,0.05) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none;"></div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: #b8ad99; margin-bottom: 12px;">RAB INSTAN — GRATIS</div>
-            <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 27px; line-height: 1.15; max-width: 270px; text-wrap: pretty;">Berapa biaya renovasi Anda?</div>
-            <div style="display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; background: #c2542b; color: #f4efe6; padding: 13px 18px; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.22em;">HITUNG RAB
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="animation: ttNudge 1.8s ease-in-out infinite;"><path d="M4 12 H19 M13 6 L19 12 L13 18"></path></svg>
+          <div onClick="{{ startRab }}" onPointerMove="{{ onBannerMove }}" onPointerLeave="{{ onBannerLeave }}" class="tt-bp" style="background: #171310; color: #f4efe6; padding: 24px 22px 22px; border-radius: 18px; position: relative; cursor: pointer; overflow: hidden; min-height: 190px; transform-style: preserve-3d; will-change: transform; animation: ttRise 0.55s 0.14s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(244,239,230,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,230,0.05) 1px, transparent 1px); background-size: 26px 26px; pointer-events: none;"></div>
+            <div style="position: absolute; top: 10px; right: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(226,156,123,0.55);">+</div>
+            <div style="position: absolute; bottom: 10px; left: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.3;">+</div>
+            <svg class="tt-plan" width="180" height="180" viewBox="0 0 176 180" fill="none" style="position: absolute; top: 50%; right: -30px; transform: translateY(-50%); pointer-events: none; overflow: visible;">
+              <g class="tt-planw">
+                <rect class="tt-scan" x="20" y="36" width="132" height="3" rx="1.5" fill="#e29c7b" opacity="0.45"></rect>
+                <path class="tt-draw" d="M20 36 H152 V140 H20 Z" stroke="rgba(244,239,230,0.9)" stroke-width="2.2" stroke-linejoin="round"></path>
+                <path class="tt-draw" d="M104 36 V98" stroke="rgba(244,239,230,0.55)" stroke-width="1.6"></path>
+                <path class="tt-draw" d="M104 98 H152" stroke="rgba(244,239,230,0.55)" stroke-width="1.6"></path>
+                <path class="tt-draw" d="M104 98 A26 26 0 0 1 78 124" stroke="#e29c7b" stroke-width="1.4"></path>
+                <path class="tt-draw" d="M20 160 H152" stroke="rgba(226,156,123,0.7)" stroke-width="1"></path>
+                <path class="tt-draw" d="M20 156 V164 M152 156 V164" stroke="rgba(226,156,123,0.7)" stroke-width="1"></path>
+                <rect class="tt-pop" x="28" y="106" width="42" height="22" rx="3" stroke="#e29c7b" stroke-width="1.4"></rect>
+                <rect class="tt-pop" x="32" y="70" width="26" height="16" rx="2" stroke="rgba(244,239,230,0.7)" stroke-width="1.3"></rect>
+                <rect class="tt-pop" x="116" y="46" width="30" height="36" rx="3" stroke="rgba(244,239,230,0.7)" stroke-width="1.3"></rect>
+                <rect class="tt-pop" x="114" y="108" width="32" height="20" rx="2" stroke="#e29c7b" stroke-width="1.3"></rect>
+                <circle class="tt-pop" cx="45" cy="52" r="7" stroke="rgba(244,239,230,0.6)" stroke-width="1.3"></circle>
+                <text class="tt-count" x="86" y="176" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="12" letter-spacing="1" fill="#e29c7b">0,0 m²</text>
+              </g>
+            </svg>
+            <div style="position: relative; z-index: 2;">
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: #e29c7b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #e29c7b; box-shadow: 0 0 8px #e29c7b;"></span>RAB INSTAN — GRATIS</div>
+              <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 27px; line-height: 1.14; max-width: 200px; text-wrap: pretty;">Berapa biaya renovasi Anda?</div>
+              <div style="display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; background: #b0472e; color: #f4efe6; padding: 13px 18px; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.22em; box-shadow: 0 6px 18px rgba(176,71,46,0.4);">HITUNG RAB
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="animation: ttNudge 1.8s ease-in-out infinite;"><path d="M4 12 H19 M13 6 L19 12 L13 18"></path></svg>
+              </div>
             </div>
           </div>
 
@@ -236,7 +330,7 @@
 
           <div style="display: flex; align-items: baseline; justify-content: space-between; margin: 30px 0 14px;">
             <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; color: #9a8f7c;">PROMO</span>
-            <span onClick="{{ goPromo }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #c2542b; cursor: pointer;">LIHAT SEMUA</span>
+            <span onClick="{{ goPromo }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #b0472e; cursor: pointer;">LIHAT SEMUA</span>
           </div>
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <div onClick="{{ goPromo }}" style="border: 1px solid #d8cdb8; border-radius: 16px; overflow: hidden; cursor: pointer; background: #fbf8f1; animation: ttScaleIn 0.5s 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; transition: transform 0.25s;" style-hover="transform: translateY(-2px);" style-active="transform: scale(0.98);">
@@ -261,20 +355,22 @@
 
           <div style="display: flex; align-items: baseline; justify-content: space-between; margin: 30px 0 14px;">
             <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; color: #9a8f7c;">INSPIRASI</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.18em; color: #b8ad99;">GESER →</span>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <div style="border: 1px solid #d8cdb8; border-radius: 16px; overflow: hidden; background: #fbf8f1; animation: ttScaleIn 0.5s 0.44s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; transition: transform 0.25s;" style-hover="transform: translateY(-2px);">
-              <div style="height: 110px; background-color: #e4dac6; background-image: repeating-linear-gradient(45deg, rgba(23,19,16,0.09) 0 1px, transparent 1px 7px); position: relative;">
-                <span style="position: absolute; top: 8px; left: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #6f6656;">SEBELUM / SESUDAH</span>
+          <div class="tt-inspo-row" style="display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 2px 20px 4px;">
+            <sc-for list="{{ inspo }}" as="c" hint-placeholder-count="4">
+              <div style="{{ c.wrapSt }}" style-hover="transform: translateY(-3px);">
+                <div onPointerDown="{{ c.onDown }}" onPointerMove="{{ c.onMove }}" onPointerUp="{{ c.onUp }}" style="height: 128px; position: relative; overflow: hidden; touch-action: none; cursor: ew-resize; background-color: {{ c.beforeTone }}; background-image: repeating-linear-gradient(45deg, rgba(23,19,16,0.09) 0 1px, transparent 1px 7px);">
+                  <span style="position: absolute; top: 8px; right: 10px; z-index: 3; font-family: 'IBM Plex Mono', monospace; font-size: 7.5px; letter-spacing: 0.18em; color: #6f6656;">SEBELUM</span>
+                  <div style="position: absolute; top: 0; left: 0; bottom: 0; overflow: hidden; border-right: 2px solid #f4efe6; box-shadow: 2px 0 6px rgba(23,19,16,0.18); width: {{ c.revW }}; transition: {{ c.revTrans }};">
+                    <div style="position: absolute; top: 0; left: 0; bottom: 0; width: {{ c.innerW }}; background-color: {{ c.afterTone }}; background-image: repeating-linear-gradient(45deg, rgba(23,19,16,0.14) 0 1px, transparent 1px 7px);"></div>
+                    <span style="position: absolute; top: 8px; left: 10px; z-index: 3; font-family: 'IBM Plex Mono', monospace; font-size: 7.5px; letter-spacing: 0.18em; color: #4a4436;">SESUDAH</span>
+                  </div>
+                  <span style="position: absolute; top: 50%; z-index: 4; pointer-events: none; left: {{ c.revW }}; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 50%; background: #f4efe6; box-shadow: 0 2px 8px rgba(23,19,16,0.3); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #171310; transition: {{ c.revTrans }};">‹›</span>
+                </div>
+                <div style="padding: 10px 12px; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 12.5px;">{{ c.title }}</div>
               </div>
-              <div style="padding: 10px 12px; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 12.5px;">Dapur 12 m² — Kemang</div>
-            </div>
-            <div style="border: 1px solid #d8cdb8; border-radius: 16px; overflow: hidden; background: #fbf8f1; animation: ttScaleIn 0.5s 0.52s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; transition: transform 0.25s;" style-hover="transform: translateY(-2px);">
-              <div style="height: 110px; background-color: #b8ad99; background-image: repeating-linear-gradient(45deg, rgba(23,19,16,0.12) 0 1px, transparent 1px 7px); position: relative;">
-                <span style="position: absolute; top: 8px; left: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #4a4436;">SEBELUM / SESUDAH</span>
-              </div>
-              <div style="padding: 10px 12px; font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 12.5px;">Kamar mandi — Bintaro</div>
-            </div>
+            </sc-for>
           </div>
         </div>
       </div>
@@ -326,7 +422,7 @@
                 <span style="{{ n.dotSt }}"></span>
                 <div style="flex: 1; min-width: 0;">
                   <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
-                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #c2542b; border: 1px solid rgba(194,84,43,0.45); border-radius: 8px; padding: 3px 7px;">{{ n.tag }}</span>
+                    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #b0472e; border: 1px solid rgba(176,71,46,0.45); border-radius: 8px; padding: 3px 7px;">{{ n.tag }}</span>
                     <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #b8ad99;">{{ n.time }} LALU</span>
                   </div>
                   <div style="{{ n.tSt }}">{{ n.t }}</div>
@@ -336,7 +432,7 @@
                   <button onClick="{{ n.onArch }}" title="{{ n.archTitle }}" style="background: none; border: none; cursor: pointer; color: #b8ad99; padding: 4px; display: flex;" style-hover="color: #171310;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7.5 H20 M5.5 7.5 V19 H18.5 V7.5 M6 4.5 H18 L20 7.5 H4 Z M10 11.5 H14"></path></svg>
                   </button>
-                  <button onClick="{{ n.onDel }}" style="background: none; border: none; cursor: pointer; color: #b8ad99; padding: 4px; display: flex;" style-hover="color: #c2542b;">
+                  <button onClick="{{ n.onDel }}" style="background: none; border: none; cursor: pointer; color: #b8ad99; padding: 4px; display: flex;" style-hover="color: #b0472e;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6 L18 18 M18 6 L6 18"></path></svg>
                   </button>
                 </div>
@@ -361,7 +457,7 @@
             </button>
           </div>
           <div style="height: 2px; background: #e4dac6;">
-            <div style="height: 2px; background: #c2542b; width: {{ rabProg }}; transition: width 0.3s ease;"></div>
+            <div style="height: 2px; background: #b0472e; width: {{ rabProg }}; transition: width 0.3s ease;"></div>
           </div>
         </div>
 
@@ -372,7 +468,8 @@
               <div style="position: absolute; top: -36px; right: -6px; font-family: 'Fraunces', serif; font-size: 130px; line-height: 1; color: rgba(23,19,16,0.05); pointer-events: none;">01</div>
               <h2 style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 26px; margin: 0 0 6px;">Jenis jasa</h2>
               <p style="font-family: 'Archivo', sans-serif; font-size: 14px; color: #6f6656; margin: 0 0 22px;">Pilih satu layanan yang Anda butuhkan.</p>
-              <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="position: relative; display: flex; flex-direction: column; gap: 10px;">
+                <div style="position: absolute; left: 0; right: 0; top: 0; height: 52px; border-radius: 16px; background: #171310; transform: translateY({{ svcPillTx }}); opacity: {{ svcPillOp }}; transition: transform 0.42s cubic-bezier(0.3, 0.9, 0.3, 1.2), opacity 0.25s; pointer-events: none; z-index: 0;"></div>
                 <sc-for list="{{ svcPick }}" as="s" hint-placeholder-count="6">
                   <div onClick="{{ s.onTap }}" style="{{ s.st }}">
                     <span style="display: flex;">{{ s.ic }}</span>
@@ -412,12 +509,12 @@
               <h2 style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 26px; margin: 0 0 6px;">Dimensi</h2>
               <p style="font-family: 'Archivo', sans-serif; font-size: 14px; color: #6f6656; margin: 0 0 22px;">Ukuran area yang akan dikerjakan.</p>
               <button onClick="{{ startAr }}" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 18px; background: #171310; color: #f4efe6; border: none; border-radius: 14px; cursor: pointer; text-align: left;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f4efe6" stroke-width="1.5"><path d="M4 8 V5 a1 1 0 0 1 1-1 H8 M16 4 h3 a1 1 0 0 1 1 1 v3 M20 16 v3 a1 1 0 0 1-1 1 h-3 M8 20 H5 a1 1 0 0 1-1-1 v-3"></path><circle cx="12" cy="12" r="1.6" fill="#c2542b" stroke="none"></circle></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f4efe6" stroke-width="1.5"><path d="M4 8 V5 a1 1 0 0 1 1-1 H8 M16 4 h3 a1 1 0 0 1 1 1 v3 M20 16 v3 a1 1 0 0 1-1 1 h-3 M8 20 H5 a1 1 0 0 1-1-1 v-3"></path><circle cx="12" cy="12" r="1.6" fill="#b0472e" stroke="none"></circle></svg>
                 <span style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
                   <span style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px;">Ukur dengan kamera (AR)</span>
                   <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.18em; color: #b8ad99;">ARAHKAN KAMERA — UKURAN TERISI OTOMATIS</span>
                 </span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="1.8"><path d="M9 5 L16 12 L9 19"></path></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="1.8"><path d="M9 5 L16 12 L9 19"></path></svg>
               </button>
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px;">
                 <div style="flex: 1; height: 1px; background: #d8cdb8;"></div>
@@ -496,7 +593,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6 L18 18 M18 6 L6 18"></path></svg>
               </button>
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.26em; color: rgba(244,239,230,0.75);">MODE AR — UKUR RUANGAN</span>
-              <span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.18em; padding: 6px 10px; border-radius: 10px; background: rgba(23,19,16,0.6); border: 1px solid rgba(194,84,43,0.6); color: #e8875f;">{{ arStatus }}</span>
+              <span style="margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.18em; padding: 6px 10px; border-radius: 10px; background: rgba(23,19,16,0.6); border: 1px solid rgba(176,71,46,0.6); color: #e29c7b;">{{ arStatus }}</span>
             </div>
 
             <div style="position: absolute; top: 112px; left: 18px; display: flex; flex-direction: column; gap: 6px;">
@@ -509,12 +606,12 @@
             </div>
 
             <sc-if value="{{ arScanning }}" hint-placeholder-val="{{ false }}">
-              <div style="position: absolute; left: 0; right: 0; top: 30%; height: 60px; background: linear-gradient(180deg, rgba(194,84,43,0), rgba(194,84,43,0.3), rgba(194,84,43,0)); animation: ttSweep 2.2s ease-in-out infinite;"></div>
+              <div style="position: absolute; left: 0; right: 0; top: 30%; height: 60px; background: linear-gradient(180deg, rgba(176,71,46,0), rgba(176,71,46,0.3), rgba(176,71,46,0)); animation: ttSweep 2.2s ease-in-out infinite;"></div>
             </sc-if>
 
             <sc-if value="{{ arAiming }}" hint-placeholder-val="{{ false }}">
               <div style="position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 44px; height: 44px; border: 1.5px solid rgba(244,239,230,0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <div style="width: 6px; height: 6px; border-radius: 50%; background: #c2542b;"></div>
+                <div style="width: 6px; height: 6px; border-radius: 50%; background: #b0472e;"></div>
               </div>
             </sc-if>
 
@@ -522,7 +619,7 @@
               <div style="position: absolute; left: 12%; right: 12%; top: 47%; display: flex; align-items: center;">
                 <div style="width: 10px; height: 10px; border-radius: 50%; background: #f4efe6; flex: none; box-shadow: 0 0 12px rgba(244,239,230,0.9);"></div>
                 <div style="flex: 1; height: 2px; background: linear-gradient(90deg, #f4efe6, rgba(244,239,230,0.35));"></div>
-                <div style="width: 10px; height: 10px; border-radius: 50%; background: #c2542b; flex: none; box-shadow: 0 0 12px rgba(194,84,43,1);"></div>
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: #b0472e; flex: none; box-shadow: 0 0 12px rgba(176,71,46,1);"></div>
               </div>
               <div style="position: absolute; left: 50%; top: 38%; transform: translateX(-50%); background: rgba(23,19,16,0.85); border: 1px solid rgba(244,239,230,0.25); border-radius: 12px; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 16px;">{{ arValStr }} m</div>
             </sc-if>
@@ -545,7 +642,7 @@
                 </div>
                 <div style="display: flex; gap: 8px; margin-top: 14px;">
                   <button onClick="{{ startAr }}" style="flex: none; padding: 14px 16px; background: transparent; color: #171310; border: 1px solid #171310; border-radius: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; cursor: pointer;">ULANGI</button>
-                  <button onClick="{{ arApply }}" style="flex: 1; padding: 14px; background: #c2542b; color: #f4efe6; border: none; border-radius: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; cursor: pointer;">GUNAKAN UKURAN →</button>
+                  <button onClick="{{ arApply }}" style="flex: 1; padding: 14px; background: #b0472e; color: #f4efe6; border: none; border-radius: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; cursor: pointer;">GUNAKAN UKURAN →</button>
                 </div>
               </div>
             </sc-if>
@@ -570,7 +667,7 @@
             <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(244,239,230,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,230,0.05) 1px, transparent 1px); background-size: 28px 28px; pointer-events: none;"></div>
             <div style="position: absolute; top: 10px; right: 14px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.35;">+</div>
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: #b8ad99; margin-bottom: 14px;">TOTAL ESTIMASI BIAYA</div>
-            <div style="position: absolute; left: 0; right: 0; top: 0; height: 60px; background: linear-gradient(180deg, rgba(194,84,43,0), rgba(194,84,43,0.16), rgba(194,84,43,0)); animation: ttSweep 5s 1.2s ease-in-out infinite; pointer-events: none;"></div>
+            <div style="position: absolute; left: 0; right: 0; top: 0; height: 60px; background: linear-gradient(180deg, rgba(176,71,46,0), rgba(176,71,46,0.16), rgba(176,71,46,0)); animation: ttSweep 5s 1.2s ease-in-out infinite; pointer-events: none;"></div>
             <div style="font-family: 'Fraunces', serif; font-weight: 400; font-size: 31px; line-height: 1.25; letter-spacing: -0.01em; animation: ttRise 0.55s 0.1s cubic-bezier(0.16, 0.8, 0.24, 1) both;">{{ rangeLo }}<span style="opacity: 0.45; padding: 0 6px;">—</span>{{ rangeHi }}</div>
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #b8ad99; margin-top: 12px;">{{ hasilMeta }}</div>
           </div>
@@ -595,7 +692,7 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="{{ g.chev }}"><path d="M7 10 L12 15 L17 10"></path></svg>
                   </div>
                   <sc-if value="{{ g.open }}" hint-placeholder-val="{{ false }}">
-                    <div style="padding: 2px 16px 14px 37px; display: flex; flex-direction: column; gap: 9px;">
+                    <div style="padding: 2px 16px 14px 37px; display: flex; flex-direction: column; gap: 9px; transform-origin: top; animation: ttAcc 0.3s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
                       <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
                         <div style="display: flex; align-items: baseline; gap: 10px;">
                           <span style="font-family: 'Archivo', sans-serif; font-size: 12.5px; color: #4a4436;">{{ it.n }}</span>
@@ -608,9 +705,9 @@
                   </sc-if>
                 </div>
               </sc-for>
-              <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 16px; background: #ece5d6;">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding: 15px 16px; background: #ece5d6;">
                 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #4a4436;">SUBTOTAL — GRADE {{ gradeName }}</span>
-                <span style="font-family: 'Fraunces', serif; font-size: 17px;">{{ totalStr }}</span>
+                <span style="font-family: 'Fraunces', serif; white-space: nowrap; margin-left: auto; font-size: {{ totalFs }};">{{ totalStr }}</span>
               </div>
             </div>
 
@@ -648,7 +745,7 @@
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; margin-bottom: 10px;">RINGKASAN RAB</div>
             <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15px;">{{ recapTitle }}</div>
             <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; color: #6f6656; margin-top: 6px;">{{ recapMeta }}</div>
-            <div style="font-family: 'Fraunces', serif; font-size: 19px; margin-top: 12px; color: #c2542b;">{{ rangeLo }} — {{ rangeHi }}</div>
+            <div style="font-family: 'Fraunces', serif; font-size: 19px; margin-top: 12px; color: #b0472e;">{{ rangeLo }} — {{ rangeHi }}</div>
           </div>
 
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.26em; color: #9a8f7c; margin: 24px 0 10px;">ALAMAT SURVEY</div>
@@ -677,7 +774,7 @@
         </div>
 
         <div style="padding: 14px 20px 30px; border-top: 1px solid #e4dac6; background: #f4efe6;">
-          <button onClick="{{ goSukses }}" style="width: 100%; padding: 17px; border-radius: 14px; background: #c2542b; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px;" style-hover="background: #9c3f1d;">KIRIM PENGAJUAN</button>
+          <button onClick="{{ goSukses }}" style="width: 100%; padding: 17px; border-radius: 14px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px;" style-hover="background: #863421;">KIRIM PENGAJUAN</button>
         </div>
       </div>
     </sc-if>
@@ -688,38 +785,38 @@
         <div style="min-height: 100%; display: flex; flex-direction: column; padding: 90px 24px 36px;">
           <div style="display: flex; justify-content: center; animation: ttPop 0.5s cubic-bezier(0.2, 0.8, 0.3, 1.2) both;">
             <svg width="92" height="92" viewBox="0 0 92 92" fill="none">
-              <circle cx="46" cy="46" r="43" stroke="#c2542b" stroke-width="1.5" stroke-dasharray="271" stroke-dashoffset="271" style="animation: ttDraw 0.9s 0.2s ease forwards;"></circle>
+              <circle cx="46" cy="46" r="43" stroke="#b0472e" stroke-width="1.5" stroke-dasharray="271" stroke-dashoffset="271" style="animation: ttDraw 0.9s 0.2s ease forwards;"></circle>
               <path d="M30 47 L41 58 L62 36" stroke="#f4efe6" stroke-width="2" stroke-dasharray="46" stroke-dashoffset="46" style="animation: ttDraw 0.5s 0.8s ease forwards;"></path>
             </svg>
           </div>
           <div style="text-align: center; margin-top: 28px;">
             <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 27px;">Pengajuan terkirim</div>
-            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.26em; color: #c2542b; margin-top: 14px; border: 1px dashed rgba(194,84,43,0.6); display: inline-block; padding: 9px 16px; animation: ttRise 0.5s 0.55s cubic-bezier(0.16, 0.8, 0.24, 1) both;">RNV-2026-00214</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.26em; color: #b0472e; margin-top: 14px; border: 1px dashed rgba(176,71,46,0.6); display: inline-block; padding: 9px 16px; animation: ttRise 0.5s 0.55s cubic-bezier(0.16, 0.8, 0.24, 1) both;">RNV-2026-00214</div>
           </div>
           <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 36px; animation: ttRise 0.6s 0.85s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
             <div style="border: 1px solid rgba(244,239,230,0.18); border-radius: 16px; padding: 15px 16px; display: flex; gap: 14px; align-items: baseline;">
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #c2542b;">01</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #b0472e;">01</span>
               <div>
                 <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px;">Verifikasi CS</div>
                 <div style="font-family: 'Archivo', sans-serif; font-size: 12.5px; color: #b8ad99; margin-top: 4px;">Tim kami menghubungi Anda dalam 1×24 jam.</div>
               </div>
             </div>
             <div style="border: 1px solid rgba(244,239,230,0.18); border-radius: 16px; padding: 15px 16px; display: flex; gap: 14px; align-items: baseline;">
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #c2542b;">02</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #b0472e;">02</span>
               <div>
                 <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px;">Jadwal survey</div>
                 <div style="font-family: 'Archivo', sans-serif; font-size: 12.5px; color: #b8ad99; margin-top: 4px;">Surveyor datang sesuai slot pilihan Anda.</div>
               </div>
             </div>
             <div style="border: 1px solid rgba(244,239,230,0.18); border-radius: 16px; padding: 15px 16px; display: flex; gap: 14px; align-items: baseline;">
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #c2542b;">03</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #b0472e;">03</span>
               <div>
                 <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px;">Penawaran final</div>
                 <div style="font-family: 'Archivo', sans-serif; font-size: 12.5px; color: #b8ad99; margin-top: 4px;">RAB final terbit setelah survey selesai.</div>
               </div>
             </div>
           </div>
-          <button onClick="{{ goDetail }}" style="animation: ttRise 0.6s 1.1s cubic-bezier(0.16, 0.8, 0.24, 1) both; margin-top: auto; width: 100%; padding: 17px; border-radius: 14px; background: #c2542b; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px;" style-hover="background: #9c3f1d;">LACAK PENGAJUAN</button>
+          <button onClick="{{ goDetail }}" style="animation: ttRise 0.6s 1.1s cubic-bezier(0.16, 0.8, 0.24, 1) both; margin-top: auto; width: 100%; padding: 17px; border-radius: 14px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px;" style-hover="background: #863421;">LACAK PENGAJUAN</button>
         </div>
       </div>
     </sc-if>
@@ -731,7 +828,7 @@
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: #9a8f7c;">TATARUANG</div>
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 6px 0 20px;">
             <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 26px;">Pesanan</div>
-            <button onClick="{{ startRab }}" style="display: flex; align-items: center; gap: 8px; background: #c2542b; color: #f4efe6; border: none; padding: 11px 14px; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; cursor: pointer; flex: none; box-shadow: 0 6px 16px rgba(194,84,43,0.35); transition: transform 0.2s;" style-hover="background: #9c3f1d;" style-active="transform: scale(0.96);">
+            <button onClick="{{ startRab }}" style="display: flex; align-items: center; gap: 8px; background: #b0472e; color: #f4efe6; border: none; padding: 11px 14px; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.18em; cursor: pointer; flex: none; box-shadow: 0 6px 16px rgba(176,71,46,0.35); transition: transform 0.2s;" style-hover="background: #863421;" style-active="transform: scale(0.96);">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5 V19 M5 12 H19"></path></svg>
               BUAT RAB
             </button>
@@ -807,7 +904,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; padding: 13px 16px;">
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: #9a8f7c;">ESTIMASI</span>
-              <span style="font-family: 'Fraunces', serif; font-size: 15px; color: #c2542b;">Rp18.400.000 — Rp22.500.000</span>
+              <span style="font-family: 'Fraunces', serif; font-size: 15px; color: #b0472e;">Rp18.400.000 — Rp22.500.000</span>
             </div>
           </div>
 
@@ -820,7 +917,7 @@
 
           <div style="display: flex; gap: 10px; margin-top: 24px;">
             <button onClick="{{ goChat }}" style="flex: 1; padding: 15px; border-radius: 14px; background: #171310; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;">HUBUNGI CS</button>
-            <button onClick="{{ openConfirm }}" style="flex: 1; padding: 15px; border-radius: 14px; background: transparent; color: #c2542b; border: 1px solid #c2542b; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: rgba(194,84,43,0.08);">BATALKAN</button>
+            <button onClick="{{ openConfirm }}" style="flex: 1; padding: 15px; border-radius: 14px; background: transparent; color: #b0472e; border: 1px solid #b0472e; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: rgba(176,71,46,0.08);">BATALKAN</button>
           </div>
         </div>
       </div>
@@ -839,16 +936,16 @@
 
         <div style="flex: 1; overflow-y: auto; padding: 20px 20px 24px;">
           <sc-if value="{{ notPaid }}" hint-placeholder-val="{{ true }}">
-            <div style="border: 1px dashed #c2542b; border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; animation: ttRise 0.45s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #9c3f1d;">SELESAIKAN DALAM</span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 0.12em; color: #c2542b; animation: ttPulse 2s ease infinite;">{{ payTimer }}</span>
+            <div style="border: 1px dashed #b0472e; border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; animation: ttRise 0.45s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #863421;">SELESAIKAN DALAM</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 0.12em; color: #b0472e; animation: ttPulse 2s ease infinite;">{{ payTimer }}</span>
             </div>
           </sc-if>
           <sc-if value="{{ isPaid }}" hint-placeholder-val="{{ false }}">
             <div style="background: #171310; color: #f4efe6; border-radius: 16px; padding: 16px; display: flex; gap: 14px; align-items: center; margin-bottom: 18px; animation: ttPop 0.4s ease both;">
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5 L11 15.5 L16.5 9.5" stroke="#f4efe6"></path></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5 L11 15.5 L16.5 9.5" stroke="#f4efe6"></path></svg>
               <div>
-                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: #c2542b;">STATUS: LUNAS</div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: #b0472e;">STATUS: LUNAS</div>
                 <div style="font-family: 'Archivo', sans-serif; font-size: 13px; color: #b8ad99; margin-top: 4px;">Pembayaran diterima. Survey akan dijadwalkan.</div>
               </div>
             </div>
@@ -872,8 +969,9 @@
                     </span>
                   </div>
                   <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
-                    <div style="padding: 0 16px 14px;">
-                      <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="padding: 0 16px 14px; transform-origin: top; animation: ttAcc 0.3s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+                      <div style="position: relative; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="position: absolute; left: 0; right: 0; top: 0; height: 44px; border-radius: 12px; background: #171310; transform: translateY({{ c.pillTx }}); opacity: {{ c.pillOp }}; transition: transform 0.42s cubic-bezier(0.3, 0.9, 0.3, 1.2), opacity 0.25s; pointer-events: none; z-index: 0;"></div>
                         <sc-for list="{{ c.opts }}" as="o" hint-placeholder-count="3">
                           <div onClick="{{ o.onTap }}" style="{{ o.st }}">
                             <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px;">{{ o.mark }}</span>
@@ -892,7 +990,7 @@
                 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #b8ad99;">NOMOR VIRTUAL ACCOUNT — {{ vaBank }}</div>
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px;">
                   <span style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; letter-spacing: 0.08em;">{{ vaNum }}</span>
-                  <button onClick="{{ copyVa }}" style="background: #c2542b; color: #f4efe6; border: none; padding: 9px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: #9c3f1d;">SALIN</button>
+                  <button onClick="{{ copyVa }}" style="background: #b0472e; color: #f4efe6; border: none; padding: 9px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: #863421;">SALIN</button>
                 </div>
                 <div style="font-family: 'Archivo', sans-serif; font-size: 12px; color: #b8ad99; margin-top: 12px; line-height: 1.5;">Transfer tepat hingga 3 digit terakhir agar terverifikasi otomatis.</div>
               </div>
@@ -962,8 +1060,8 @@
                   </div>
                   <div style="flex: 1; padding: 14px 16px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #c2542b;">{{ v.code }}</span>
-                      <button onClick="{{ v.onCopy }}" style="background: none; border: 1px solid #c2542b; color: #c2542b; padding: 7px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; cursor: pointer; border-radius: 12px;" style-hover="background: rgba(194,84,43,0.08);">SALIN</button>
+                      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #b0472e;">{{ v.code }}</span>
+                      <button onClick="{{ v.onCopy }}" style="background: none; border: 1px solid #b0472e; color: #b0472e; padding: 7px 12px; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; cursor: pointer; border-radius: 12px;" style-hover="background: rgba(176,71,46,0.08);">SALIN</button>
                     </div>
                     <div style="font-family: 'Archivo', sans-serif; font-size: 13.5px; font-weight: 500; margin-top: 8px;">{{ v.disc }}</div>
                     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.16em; color: #9a8f7c; margin-top: 7px;">{{ v.exp }}</div>
@@ -973,7 +1071,7 @@
             </div>
           </sc-if>
         </div>
-        <button onClick="{{ openSheet }}" style="position: absolute; right: 18px; bottom: 96px; background: #c2542b; color: #f4efe6; border: none; padding: 15px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px; box-shadow: 0 10px 26px rgba(23,19,16,0.3); z-index: 20;" style-hover="background: #9c3f1d;">+ PUNYA KODE?</button>
+        <button onClick="{{ openSheet }}" style="position: absolute; right: 18px; bottom: 96px; background: #b0472e; color: #f4efe6; border: none; padding: 15px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px; box-shadow: 0 10px 26px rgba(23,19,16,0.3); z-index: 20;" style-hover="background: #863421;">+ PUNYA KODE?</button>
       </div>
     </sc-if>
 
@@ -990,7 +1088,7 @@
               <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15px; color: #f4efe6;">Chat via WhatsApp</div>
               <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: #b8ad99; margin-top: 5px;">BALASAN &lt; 5 MENIT — JAM KERJA</div>
             </div>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="1.5"><path d="M4 12 H19 M13 6 L19 12 L13 18"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="1.5"><path d="M4 12 H19 M13 6 L19 12 L13 18"></path></svg>
           </a>
 
           <div style="display: flex; justify-content: space-between; border: 1px solid #d8cdb8; border-radius: 16px; background: #fbf8f1; padding: 13px 16px; margin-top: 12px;">
@@ -1007,7 +1105,7 @@
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="{{ f.chev }}"><path d="M7 10 L12 15 L17 10"></path></svg>
                 </div>
                 <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
-                  <div style="padding: 0 16px 15px; font-family: 'Archivo', sans-serif; font-size: 13px; color: #4a4436; line-height: 1.55;">{{ f.a }}</div>
+                  <div style="padding: 0 16px 15px; font-family: 'Archivo', sans-serif; font-size: 13px; color: #4a4436; line-height: 1.55; transform-origin: top; animation: ttAcc 0.3s cubic-bezier(0.16, 0.8, 0.24, 1) both;">{{ f.a }}</div>
                 </sc-if>
               </div>
             </sc-for>
@@ -1021,7 +1119,7 @@
             </div>
             <div style="display: flex; justify-content: space-between; padding: 14px 16px;">
               <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #9a8f7c;">EMAIL</span>
-              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em;">halo@tataruang.id</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em;"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93fbf2fffcd3e7f2e7f2e1e6f2fdf4bdfaf7">[email&#160;protected]</a></span>
             </div>
           </div>
         </div>
@@ -1038,7 +1136,7 @@
             <div>
               <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 21px;">{{ pfName }}</div>
               <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; color: #b8ad99; margin-top: 5px;">{{ pfPhone }}</div>
-              <div style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #c2542b; border: 1px solid rgba(194,84,43,0.6); padding: 4px 8px; margin-top: 9px;">TERVERIFIKASI</div>
+              <div style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #b0472e; border: 1px solid rgba(176,71,46,0.6); padding: 4px 8px; margin-top: 9px;">TERVERIFIKASI</div>
             </div>
           </div>
         </div>
@@ -1049,7 +1147,7 @@
               <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px;">Edit Profil</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9a8f7c" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
             </div>
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; cursor: pointer;" style-hover="background: #f4efe6;">
+            <div onClick="{{ goProfil }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; cursor: pointer;" style-hover="background: #f4efe6;">
               <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px;">Alamat Tersimpan</span>
               <span style="display: flex; align-items: center; gap: 10px;">
                 <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #9a8f7c;">2</span>
@@ -1071,7 +1169,7 @@
           </div>
 
           <div style="border: 1px solid #d8cdb8; border-radius: 16px; background: #fbf8f1; overflow: hidden; margin-top: 22px; animation: ttRise 0.5s 0.32s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #e4dac6; cursor: pointer;" style-hover="background: #f4efe6;">
+            <div onClick="{{ goUlasan }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid #e4dac6; cursor: pointer;" style-hover="background: #f4efe6;">
               <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px;">Ulasan Saya</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9a8f7c" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
             </div>
@@ -1080,8 +1178,8 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9a8f7c" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
             </div>
             <div onClick="{{ goLogin }}" style="display: flex; align-items: center; justify-content: space-between; padding: 16px; cursor: pointer;" style-hover="background: #f4efe6;">
-              <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; color: #c2542b;">Keluar</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
+              <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; color: #b0472e;">Keluar</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
             </div>
           </div>
 
@@ -1125,9 +1223,9 @@
           <div style="display: flex; flex-direction: column; gap: 8px; animation: ttRise 0.5s 0.22s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
             <sc-for list="{{ addrItems }}" as="a" hint-placeholder-count="2">
               <div style="display: flex; align-items: flex-start; gap: 12px; border: 1px solid #d8cdb8; background: #fbf8f1; border-radius: 14px; padding: 13px 14px;">
-                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #c2542b; border: 1px solid rgba(194,84,43,0.45); border-radius: 8px; padding: 3px 7px; flex: none; margin-top: 1px;">{{ a.label }}</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; color: #b0472e; border: 1px solid rgba(176,71,46,0.45); border-radius: 8px; padding: 3px 7px; flex: none; margin-top: 1px;">{{ a.label }}</span>
                 <span style="font-family: 'Archivo', sans-serif; font-size: 13px; color: #6f6656; flex: 1;">{{ a.v }}</span>
-                <button onClick="{{ a.onDel }}" style="background: none; border: none; cursor: pointer; color: #b8ad99; padding: 2px; flex: none; display: flex;" style-hover="color: #c2542b;">
+                <button onClick="{{ a.onDel }}" style="background: none; border: none; cursor: pointer; color: #b8ad99; padding: 2px; flex: none; display: flex;" style-hover="color: #b0472e;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6 L18 18 M18 6 L6 18"></path></svg>
                 </button>
               </div>
@@ -1140,11 +1238,11 @@
             </div>
           </div>
 
-          <button onClick="{{ savePf }}" style="width: 100%; padding: 17px; margin-top: 28px; background: #c2542b; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.28s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: #9c3f1d;" style-active="transform: scale(0.98);">SIMPAN PERUBAHAN</button>
+          <button onClick="{{ savePf }}" style="width: 100%; padding: 17px; margin-top: 28px; background: #b0472e; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.24em; cursor: pointer; border-radius: 12px; animation: ttRise 0.5s 0.28s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: #863421;" style-active="transform: scale(0.98);">SIMPAN PERUBAHAN</button>
 
-          <div onClick="{{ openDel }}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(194,84,43,0.4); border-radius: 14px; padding: 15px 16px; margin-top: 26px; cursor: pointer; animation: ttRise 0.5s 0.34s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: rgba(194,84,43,0.06);">
-            <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; color: #c2542b;">Hapus akun</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c2542b" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
+          <div onClick="{{ openDel }}" style="display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(176,71,46,0.4); border-radius: 14px; padding: 15px 16px; margin-top: 26px; cursor: pointer; animation: ttRise 0.5s 0.34s cubic-bezier(0.16, 0.8, 0.24, 1) both;" style-hover="background: rgba(176,71,46,0.06);">
+            <span style="font-family: 'Archivo', sans-serif; font-weight: 500; font-size: 14px; color: #b0472e;">Hapus akun</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b0472e" stroke-width="1.5"><path d="M9 5 L16 12 L9 19"></path></svg>
           </div>
         </div>
 
@@ -1155,10 +1253,38 @@
             <p style="font-family: 'Archivo', sans-serif; font-size: 13.5px; color: #6f6656; margin: 0 0 18px;">Semua data pesanan dan RAB akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.</p>
             <div style="display: flex; gap: 8px;">
               <button onClick="{{ closeDel }}" style="flex: 1; padding: 15px; background: transparent; color: #171310; border: 1px solid #171310; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; cursor: pointer;">BATAL</button>
-              <button onClick="{{ doDel }}" style="flex: 1; padding: 15px; background: #c2542b; color: #f4efe6; border: none; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; cursor: pointer;">HAPUS</button>
+              <button onClick="{{ doDel }}" style="flex: 1; padding: 15px; background: #b0472e; color: #f4efe6; border: none; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; cursor: pointer;">HAPUS</button>
             </div>
           </div>
         </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- ============ S-62 ULASAN SAYA ============ -->
+    <sc-if value="{{ isUlasan }}" hint-placeholder-val="{{ false }}">
+      <div data-screen-label="S-62 Ulasan Saya" style="position: absolute; inset: 0; background: #f4efe6; color: #171310; overflow-y: auto; animation: ttScreenIn 0.38s cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+        <div style="padding: 60px 20px 40px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <button onClick="{{ goAkun }}" style="background: none; border: none; padding: 8px 8px 8px 0; cursor: pointer; color: #171310; display: flex;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5 L8 12 L15 19"></path></svg>
+            </button>
+            <h1 style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 26px; margin: 0;">Ulasan saya</h1>
+          </div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #9a8f7c; margin: 14px 0 18px;">03 ULASAN — RATA-RATA 4,7 ★</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <sc-for list="{{ reviewItems }}" as="rv" hint-placeholder-count="3">
+              <div style="border: 1px solid #d8cdb8; background: #fbf8f1; border-radius: 16px; padding: 16px; animation: ttRise 0.5s {{ rv.delay }} cubic-bezier(0.16, 0.8, 0.24, 1) both;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
+                  <div style="font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 14px;">{{ rv.svc }}</div>
+                  <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; color: #9a8f7c; white-space: nowrap; margin-top: 2px;">{{ rv.date }}</span>
+                </div>
+                <div style="color: #b0472e; font-size: 14px; letter-spacing: 3px; margin: 8px 0 10px;">{{ rv.stars }}</div>
+                <p style="font-family: 'Archivo', sans-serif; font-size: 13.5px; color: #6f6656; line-height: 1.55; margin: 0;">{{ rv.body }}</p>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.16em; color: #b8ad99; margin-top: 12px;">{{ rv.order }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
       </div>
     </sc-if>
 
@@ -1166,21 +1292,21 @@
     <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
       <div style="position: absolute; left: 10px; right: 10px; bottom: 12px; height: 72px; background: rgba(23,19,16,0.97); z-index: 40; display: flex; align-items: stretch; border-radius: 24px; box-shadow: 0 14px 34px rgba(23,19,16,0.35); padding: 8px 6px; animation: ttNavIn 0.55s 0.05s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;">
         <div style="position: absolute; top: 13px; left: 6px; width: calc((100% - 12px) / 5); height: 30px; display: flex; justify-content: center; transform: translateX({{ navTx }}); opacity: {{ navPillOp }}; transition: transform 0.45s cubic-bezier(0.3, 0.9, 0.3, 1.2), opacity 0.3s; pointer-events: none;">
-          <span style="width: 52px; height: 30px; border-radius: 15px; background: #c2542b;"></span>
+          <span style="width: 52px; height: 30px; border-radius: 15px; background: #b0472e;"></span>
         </div>
         <button onClick="{{ goHome }}" style="flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 0;" style-active="transform: scale(0.92);">
           <span style="{{ pBeranda }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 L12 4.5 L20 11.5 M6.5 10 V19.5 H17.5 V10"></path></svg></span>
           <span style="{{ lBeranda }}">Beranda</span>
         </button>
         <button onClick="{{ goPesanan }}" style="flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 0;" style-active="transform: scale(0.92);">
-          <span style="{{ pPesanan }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 H18 V20 L15.5 18.3 L13.2 20 L10.8 18.3 L8.5 20 L6 18.3 Z M9 9 H15 M9 12.5 H13.5"></path></svg><span style="position: absolute; top: 2px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: #c2542b; border: 1.5px solid #171310;"></span></span>
+          <span style="{{ pPesanan }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4 H18 V20 L15.5 18.3 L13.2 20 L10.8 18.3 L8.5 20 L6 18.3 Z M9 9 H15 M9 12.5 H13.5"></path></svg><span style="position: absolute; top: 2px; right: 6px; width: 7px; height: 7px; border-radius: 50%; background: #b0472e; border: 1.5px solid #171310;"></span></span>
           <span style="{{ lPesanan }}">Pesanan</span>
         </button>
         <button onClick="{{ startRab }}" style="flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 0; position: relative;" style-active="transform: scale(0.94);">
-          <span style="width: 52px; height: 52px; border-radius: 50%; background: #c2542b; color: #f4efe6; display: flex; align-items: center; justify-content: center; margin-top: -22px; border: 4px solid #171310; box-shadow: 0 8px 20px rgba(194,84,43,0.5), 0 0 0 1px rgba(244,239,230,0.12); transition: transform 0.2s;">
+          <span style="width: 52px; height: 52px; border-radius: 50%; background: #b0472e; color: #f4efe6; display: flex; align-items: center; justify-content: center; margin-top: -22px; border: 4px solid #171310; box-shadow: 0 8px 20px rgba(176,71,46,0.5), 0 0 0 1px rgba(244,239,230,0.12); transition: transform 0.2s;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5 V19 M5 12 H19"></path></svg>
           </span>
-          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; font-weight: 500; color: #e8875f; margin-top: 4px;">RAB</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; letter-spacing: 0.14em; font-weight: 500; color: #e29c7b; margin-top: 4px;">RAB</span>
         </button>
         <button onClick="{{ goPromo }}" style="flex: 1; background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 0;" style-active="transform: scale(0.92);">
           <span style="{{ pPromo }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 L18 6"></path><circle cx="8" cy="8" r="2.3"></circle><circle cx="16" cy="16" r="2.3"></circle></svg></span>
@@ -1202,13 +1328,13 @@
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.26em; color: #9a8f7c;">MASUKKAN KODE VOUCHER</div>
           <div style="display: flex; gap: 10px; margin-top: 14px;">
             <input type="text" placeholder="RENOV10" value="{{ codeVal }}" onChange="{{ setCode }}" style="flex: 1; padding: 14px; border: 1px solid #d8cdb8; background: #fbf8f1; font-family: 'IBM Plex Mono', monospace; font-size: 14px; letter-spacing: 0.14em; color: #171310; border-radius: 12px; text-transform: uppercase;">
-            <button onClick="{{ applyCode }}" style="background: #c2542b; color: #f4efe6; border: none; padding: 0 20px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: #9c3f1d;">PAKAI</button>
+            <button onClick="{{ applyCode }}" style="background: #b0472e; color: #f4efe6; border: none; padding: 0 20px; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;" style-hover="background: #863421;">PAKAI</button>
           </div>
           <sc-if value="{{ codeOk }}" hint-placeholder-val="{{ false }}">
             <div style="margin-top: 14px; padding: 12px 14px; background: #171310; color: #f4efe6; border-radius: 12px; font-family: 'Archivo', sans-serif; font-size: 13px; animation: ttScreenIn 0.2s ease both;">Voucher berhasil dipakai — potongan Rp500.000</div>
           </sc-if>
           <sc-if value="{{ codeErr }}" hint-placeholder-val="{{ false }}">
-            <div style="margin-top: 14px; padding: 12px 14px; border: 1px solid #c2542b; color: #9c3f1d; border-radius: 12px; font-family: 'Archivo', sans-serif; font-size: 13px; animation: ttScreenIn 0.2s ease both;">Kode tidak berlaku</div>
+            <div style="margin-top: 14px; padding: 12px 14px; border: 1px solid #b0472e; color: #863421; border-radius: 12px; font-family: 'Archivo', sans-serif; font-size: 13px; animation: ttScreenIn 0.2s ease both;">Kode tidak berlaku</div>
           </sc-if>
         </div>
       </div>
@@ -1219,12 +1345,12 @@
       <div style="position: absolute; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 28px;">
         <div onClick="{{ closeConfirm }}" style="position: absolute; inset: 0; background: rgba(23,19,16,0.55); animation: ttFadeIn 0.2s ease both;"></div>
         <div style="position: relative; background: #f4efe6; border-radius: 16px; padding: 24px 22px; width: 100%; animation: ttPop 0.25s ease both;">
-          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #c2542b;">KONFIRMASI</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: #b0472e;">KONFIRMASI</div>
           <div style="font-family: 'Fraunces', serif; font-weight: 380; font-size: 21px; margin-top: 10px;">Batalkan pengajuan ini?</div>
           <p style="font-family: 'Archivo', sans-serif; font-size: 13.5px; color: #6f6656; line-height: 1.5; margin: 10px 0 20px;">RNV-2026-00214 akan dihentikan dan jadwal survey dibatalkan.</p>
           <div style="display: flex; gap: 10px;">
             <button onClick="{{ closeConfirm }}" style="flex: 1; padding: 14px; background: #171310; color: #f4efe6; border: none; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;">TIDAK</button>
-            <button onClick="{{ doCancel }}" style="flex: 1; padding: 14px; background: transparent; color: #c2542b; border: 1px solid #c2542b; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;">YA, BATALKAN</button>
+            <button onClick="{{ doCancel }}" style="flex: 1; padding: 14px; background: transparent; color: #b0472e; border: 1px solid #b0472e; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; cursor: pointer; border-radius: 12px;">YA, BATALKAN</button>
           </div>
         </div>
       </div>
@@ -1241,10 +1367,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{
-  &quot;startScreen&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;splash&quot;, &quot;login&quot;, &quot;home&quot;, &quot;hasil&quot;, &quot;bayar&quot;, &quot;promo&quot;], &quot;default&quot;: &quot;splash&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Demo&quot; },
-  &quot;defaultGrade&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;ekonomi&quot;, &quot;standar&quot;, &quot;premium&quot;], &quot;default&quot;: &quot;standar&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Demo&quot; }
-}">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;login&quot;,&quot;home&quot;,&quot;hasil&quot;,&quot;bayar&quot;,&quot;promo&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;defaultGrade&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ekonomi&quot;,&quot;standar&quot;,&quot;premium&quot;],&quot;default&quot;:&quot;standar&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Demo&quot;}}">
 class Component extends DCLogic {
   constructor(props) {
     super(props);
@@ -1293,6 +1416,11 @@ class Component extends DCLogic {
       { id: 'cicil', name: 'Cicilan', opts: ['Tenor 3 / 6 / 12 bulan'], hint: '' },
       { id: 'ib', name: 'Internet Banking', opts: ['KlikBCA', 'Livin by Mandiri'], hint: '' },
     ];
+    this.REVIEWS = [
+      { order: 'REN-2026-00088', svc: 'Renovasi Kamar Mandi', rating: 5, date: '05 JUL 2026', body: 'Hasil rapi, tukang datang tepat waktu dan area kerja dibersihkan setelah selesai. Sangat puas.' },
+      { order: 'TH-2026-00412', svc: 'Tukang Harian — 2 orang', rating: 4, date: '23 JUN 2026', body: 'Pekerjaan cepat dan sesuai brief. Komunikasi soal jadwal bisa sedikit lebih baik.' },
+      { order: 'REN-2026-00051', svc: 'Cat & Finishing — Fasad', rating: 5, date: '06 MEI 2026', body: 'Warna sesuai contoh, finishing halus tanpa belang. Terima kasih tim TATARUANG.' },
+    ];
     const g = ['ekonomi', 'standar', 'premium'].includes(props.defaultGrade) ? props.defaultGrade : 'standar';
     this.state = {
       route: '', splash: 0,
@@ -1334,19 +1462,64 @@ class Component extends DCLogic {
     window.addEventListener('hashchange', this.onHash);
     this.onHash();
     this.tickI = setInterval(() => {
-      this.setState((s) => {
-        const u = {};
-        if (s.route === '#/bayar' && !s.paid && s.payS > 0) u.payS = s.payS - 1;
-        if (s.route === '#/otp' && s.otpT > 0) u.otpT = s.otpT - 1;
-        return u;
-      });
+      const s = this.state;
+      if (s.route === '#/bayar' && !s.paid && s.payS > 0) this.setState({ payS: s.payS - 1 });
+      else if (s.route === '#/otp' && s.otpT > 0) this.setState({ otpT: s.otpT - 1 });
     }, 1000);
+    setTimeout(() => { if ((location.hash || '') === '#/home' || (this.props.startScreen ?? '') === 'home') this.initBanner(); }, 80);
+  }
+
+  componentDidUpdate() {
+    if (this.state.route === '#/home') {
+      const root = document.querySelector('.tt-plan');
+      if (root && root !== this._bpNode) this.initBanner();
+    } else if (this._bpNode) {
+      this._bpNode = null;
+      this.killBanner();
+    }
+  }
+
+  killBanner() {
+    clearTimeout(this._bpRetry);
+    if (this._bpTl) { this._bpTl.kill(); this._bpTl = null; }
+    if (this._bpScan) { this._bpScan.kill(); this._bpScan = null; }
+    if (this._bpFloat) { this._bpFloat.kill(); this._bpFloat = null; }
+  }
+
+  initBanner(tries) {
+    tries = tries || 0;
+    const root = document.querySelector('.tt-plan');
+    if (typeof gsap === 'undefined' || !root) {
+      if (tries < 30) this._bpRetry = setTimeout(() => this.initBanner(tries + 1), 100);
+      return;
+    }
+    this.killBanner();
+    this._bpNode = root;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const draws = root.querySelectorAll('.tt-draw');
+    draws.forEach((el) => { const len = el.getTotalLength ? el.getTotalLength() : 0; el.style.strokeDasharray = len; el.style.strokeDashoffset = reduce ? 0 : len; });
+    const pops = root.querySelectorAll('.tt-pop');
+    const scan = root.querySelector('.tt-scan');
+    const planw = root.querySelector('.tt-planw');
+    const countEl = root.querySelector('.tt-count');
+    if (reduce) { gsap.set(pops, { opacity: 1 }); gsap.set(scan, { opacity: 0 }); if (countEl) countEl.textContent = '12,0 m²'; return; }
+    gsap.set(pops, { transformOrigin: '50% 50%', scale: 0, opacity: 0 });
+    gsap.set(scan, { opacity: 0 });
+    const tl = gsap.timeline({ delay: 0.4 });
+    tl.to(draws, { strokeDashoffset: 0, duration: 0.85, stagger: 0.12, ease: 'power2.inOut' });
+    tl.to(pops, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(2)' }, '-=0.4');
+    const c = { v: 0 };
+    tl.to(c, { v: 12, duration: 1.0, ease: 'power1.out', onUpdate: () => { if (countEl) countEl.textContent = c.v.toFixed(1).replace('.', ',') + ' m²'; } }, '-=0.6');
+    this._bpTl = tl;
+    this._bpScan = gsap.fromTo(scan, { attr: { y: 36 }, opacity: 0 }, { attr: { y: 132 }, opacity: 0.5, duration: 2.2, ease: 'sine.in', repeat: -1, repeatDelay: 1.4, delay: 1.5 });
+    this._bpFloat = gsap.to(planw, { y: -6, duration: 3.4, ease: 'sine.inOut', yoyo: true, repeat: -1 });
   }
 
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.onHash);
     clearInterval(this.tickI); clearInterval(this.spI);
     cancelAnimationFrame(this.raf); clearTimeout(this.toastT); clearTimeout(this.payT);
+    this.killBanner();
   }
 
   runSplash() {
@@ -1423,7 +1596,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state, r = s.route, am = s.animMult;
-    const ink = '#171310', cream = '#f4efe6', terra = '#c2542b';
+    const ink = '#171310', cream = '#f4efe6', terra = '#b0472e';
     const mono = "'IBM Plex Mono', monospace";
     const isRab1 = r === '#/rab/1', isRab2 = r === '#/rab/2', isRab3 = r === '#/rab/3', isRab4 = r === '#/rab/4';
     const isRabAny = isRab1 || isRab2 || isRab3 || isRab4;
@@ -1434,6 +1607,7 @@ class Component extends DCLogic {
       isPesanan: r === '#/pesanan', isDetail: r === '#/pesanan/detail', isBayar: r === '#/bayar',
       isPromo: r === '#/promo', isChat: r === '#/chat', isAkun: r === '#/akun',
       isLupa: r === '#/lupa', isNotif: r === '#/notif', isProfil: r === '#/akun/profil',
+      isDaftar: r === '#/daftar', isUlasan: r === '#/ulasan',
     };
     const showNav = ['#/home', '#/pesanan', '#/pesanan/detail', '#/promo', '#/chat', '#/akun'].includes(r);
     const sbFg = (flags.isSplash || flags.isSukses || flags.isAkun || flags.isDetail) ? cream : ink;
@@ -1474,6 +1648,31 @@ class Component extends DCLogic {
     const chBase = { padding: '10px 16px', border: 'none', fontFamily: mono, fontSize: '10px', letterSpacing: '0.18em', cursor: 'pointer', background: 'transparent', color: ink };
     const chSel = { ...chBase, background: ink, color: cream };
 
+    const inspoData = [
+      { title: 'Dapur 12 m² — Kemang', beforeTone: '#e4dac6', afterTone: '#c9bda2' },
+      { title: 'Kamar mandi — Bintaro', beforeTone: '#b8ad99', afterTone: '#9c8f76' },
+      { title: 'Ruang tamu — Menteng', beforeTone: '#d8cdb8', afterTone: '#b0472e' },
+      { title: 'Fasad rumah — BSD', beforeTone: '#cabfa8', afterTone: '#b8ad99' },
+      { title: 'Kamar tidur — Depok', beforeTone: '#e4dac6', afterTone: '#a89a80' },
+    ];
+    const inspo = inspoData.map((c, i) => {
+      const pct = (s.inspoRev && s.inspoRev[i] != null) ? s.inspoRev[i] : 42;
+      const dragging = s.inspoDrag === i;
+      const setRev = (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const p = Math.max(6, Math.min(94, ((e.clientX - r.left) / r.width) * 100));
+        this.setState((st) => ({ inspoRev: { ...st.inspoRev, [i]: p } }));
+      };
+      return {
+        ...c, innerW: '168px', revW: pct.toFixed(1) + '%',
+        revTrans: dragging ? 'none' : 'width 0.3s cubic-bezier(0.2,0.9,0.3,1.1), left 0.3s cubic-bezier(0.2,0.9,0.3,1.1)',
+        onDown: (e) => { e.currentTarget.setPointerCapture(e.pointerId); this.setState({ inspoDrag: i }); setRev(e); },
+        onMove: (e) => { if (s.inspoDrag === i) setRev(e); },
+        onUp: (e) => { try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {} this.setState({ inspoDrag: null }); },
+        wrapSt: { flex: 'none', width: '168px', scrollSnapAlign: 'start', border: '1px solid #d8cdb8', borderRadius: '16px', overflow: 'hidden', background: '#fbf8f1', animation: 'ttScaleIn 0.5s ' + (0.44 + i * 0.06).toFixed(2) + 's cubic-bezier(0.2, 0.9, 0.3, 1.15) both', transition: 'transform 0.25s' },
+      };
+    });
+
     // services
     const svcHome = this.SV.map((x, i) => ({
       ...x, ic: this.icon(x.d), delay: (0.16 + i * 0.05).toFixed(2) + 's',
@@ -1483,10 +1682,11 @@ class Component extends DCLogic {
       const sel = s.rab.service === x.slug;
       return {
         ...x, ic: this.icon(x.d, 20), mark: sel ? '●' : '○',
-        st: { display: 'flex', alignItems: 'center', gap: '14px', padding: '15px 16px', borderRadius: '16px', cursor: 'pointer', border: '1px solid ' + (sel ? ink : '#d8cdb8'), background: sel ? ink : '#fbf8f1', color: sel ? cream : ink, transition: 'background 0.15s, color 0.15s' },
+        st: { display: 'flex', alignItems: 'center', gap: '14px', padding: '0 16px', height: '52px', boxSizing: 'border-box', borderRadius: '16px', cursor: 'pointer', border: '1px solid ' + (sel ? ink : '#d8cdb8'), background: 'transparent', color: sel ? cream : ink, position: 'relative', zIndex: 1, transition: 'color 0.22s, border-color 0.3s' },
         onTap: () => this.setRab({ service: x.slug }),
       };
     });
+    const svcIdx = this.SV.findIndex((x) => x.slug === s.rab.service);
 
     // step 2
     const chipBase = (sel) => ({ padding: '12px 16px', borderRadius: '12px', cursor: 'pointer', fontFamily: "'Archivo', sans-serif", fontWeight: 500, fontSize: '13.5px', border: '1px solid ' + (sel ? ink : '#d8cdb8'), background: sel ? ink : '#fbf8f1', color: sel ? cream : ink, transition: 'background 0.15s, color 0.15s' });
@@ -1556,7 +1756,7 @@ class Component extends DCLogic {
     });
     const badge = (status) => {
       const b = { fontFamily: mono, fontSize: '8px', letterSpacing: '0.16em', padding: '5px 8px', borderRadius: '12px', whiteSpace: 'nowrap' };
-      if (status === 'MENUNGGU PEMBAYARAN') return { ...b, color: terra, border: '1px solid rgba(194,84,43,0.5)', background: 'rgba(194,84,43,0.07)' };
+      if (status === 'MENUNGGU PEMBAYARAN') return { ...b, color: terra, border: '1px solid rgba(176,71,46,0.5)', background: 'rgba(176,71,46,0.07)' };
       if (status === 'SURVEY DIJADWALKAN') return { ...b, color: ink, border: '1px solid ' + ink };
       return { ...b, color: '#8a7f6e', border: '1px solid #d8cdb8' };
     };
@@ -1583,15 +1783,19 @@ class Component extends DCLogic {
     }));
 
     // bayar
-    const payCats = this.PAYCATS.map((c) => ({
+    const payCats = this.PAYCATS.map((c) => {
+      const selIdx = c.opts.indexOf(s.payOpt);
+      return {
       name: c.name, hint: c.hint, open: s.payCat === c.id,
       onTap: () => this.setState((st) => ({ payCat: st.payCat === c.id ? null : c.id })),
       chev: { transform: s.payCat === c.id ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' },
+      pillTx: (selIdx * 52) + 'px', pillOp: selIdx >= 0 ? 1 : 0,
       opts: c.opts.map((o) => {
         const sel = s.payOpt === o;
-        return { name: o, mark: sel ? '●' : '○', onTap: () => this.setState({ payOpt: o }), st: { display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '12px', cursor: 'pointer', border: '1px solid ' + (sel ? ink : '#e4dac6'), background: sel ? '#ece5d6' : 'transparent', color: ink, transition: 'background 0.15s' } };
+        return { name: o, mark: sel ? '●' : '○', onTap: () => this.setState({ payOpt: o }), st: { display: 'flex', alignItems: 'center', gap: '12px', height: '44px', boxSizing: 'border-box', padding: '0 14px', borderRadius: '12px', cursor: 'pointer', border: '1px solid ' + (sel ? ink : '#e4dac6'), background: 'transparent', color: sel ? cream : ink, position: 'relative', zIndex: 1, transition: 'color 0.22s, border-color 0.3s' } };
       }),
-    }));
+      };
+    });
     const vaShown = !s.paid && ['BCA', 'Mandiri', 'BRI'].includes(s.payOpt);
     const payReady = !!s.payOpt && !s.paying;
     const payGo = s.paying ? () => {} : () => {
@@ -1626,6 +1830,10 @@ class Component extends DCLogic {
       goDetail: this.go('#/pesanan/detail'), goPesanan: this.go('#/pesanan'), goPromo: this.go('#/promo'),
       goChat: this.go('#/chat'), goAkun: this.go('#/akun'),
       goLupa: this.go('#/lupa'), goNotif: this.go('#/notif'), goProfil: this.go('#/akun/profil'),
+      goDaftar: this.go('#/daftar'), goUlasan: this.go('#/ulasan'),
+      reviewItems: this.REVIEWS.map((rv, i) => ({ ...rv, stars: '★'.repeat(rv.rating) + '☆'.repeat(5 - rv.rating), delay: (0.06 + i * 0.08).toFixed(2) + 's' })),
+      onBannerMove: (e) => { if (typeof gsap === 'undefined') return; const el = e.currentTarget; const rc = el.getBoundingClientRect(); const px = (e.clientX - rc.left) / rc.width - 0.5; const py = (e.clientY - rc.top) / rc.height - 0.5; gsap.to(el, { rotateY: px * 8, rotateX: -py * 8, duration: 0.5, ease: 'power2.out', transformPerspective: 800, transformOrigin: 'center' }); },
+      onBannerLeave: (e) => { if (typeof gsap !== 'undefined') gsap.to(e.currentTarget, { rotateX: 0, rotateY: 0, duration: 0.7, ease: 'power3.out' }); },
       navTx: (Math.max(navIdx, 0) * 100) + '%', navPillOp: navIdx < 0 ? 0 : 1,
       pfName: s.pf.name, pfEmail: s.pf.email, pfPhone: s.pf.phone,
       pfInit: s.pf.name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase() || 'T',
@@ -1678,7 +1886,7 @@ class Component extends DCLogic {
           selAllSt: { width: '18px', height: '18px', flex: 'none', border: '1.5px solid ' + (allSel ? terra : '#b8ad99'), background: allSel ? terra : 'transparent', color: cream, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', borderRadius: '6px', fontFamily: mono, transition: 'background 0.15s' },
           selAll: () => this.setState({ selIds: allSel ? [] : shown.map((n) => n.id) }),
           bulkBtnSt,
-          bulkDelSt: { ...bulkBtnSt, color: terra, borderColor: 'rgba(194,84,43,0.5)' },
+          bulkDelSt: { ...bulkBtnSt, color: terra, borderColor: 'rgba(176,71,46,0.5)' },
           bulkArchLabel: s.notifTab === 0 ? 'ARSIP' : 'PULIHKAN',
           bulkRead: () => { if (needSel()) return; this.setState((st) => ({ notifs: st.notifs.map((n) => (st.selIds.includes(n.id) ? { ...n, read: true } : n)), selIds: [], selMode: false })); this.showToast('Ditandai dibaca'); },
           bulkArch: () => { if (needSel()) return; const to = s.notifTab === 0; this.setState((st) => ({ notifs: st.notifs.map((n) => (st.selIds.includes(n.id) ? { ...n, archived: to, read: true } : n)), selIds: [], selMode: false })); this.showToast(to ? 'Diarsipkan' : 'Dikembalikan ke kotak masuk'); },
@@ -1712,7 +1920,7 @@ class Component extends DCLogic {
       otpBoxes, otpTimer: '00:' + String(s.otpT).padStart(2, '0'),
       chWaSt: s.otpCh === 'WA' ? chSel : chBase, chSmsSt: s.otpCh === 'SMS' ? chSel : chBase,
       setChWa: () => this.setState({ otpCh: 'WA' }), setChSms: () => this.setState({ otpCh: 'SMS' }),
-      svcHome, svcPick, roomChips, condSegs,
+      svcHome, svcPick, svcPillTx: (svcIdx * 62) + 'px', svcPillOp: svcIdx >= 0 ? 1 : 0, roomChips, condSegs, inspo,
       rabP: s.rab.p, rabL: s.rab.l, setP: (e) => this.setRab({ p: e.target.value }), setL: (e) => this.setRab({ l: e.target.value }),
       arOn: !!s.arOn,
       arScanning: s.arOn && s.arPhase === 0,
@@ -1749,9 +1957,9 @@ class Component extends DCLogic {
       rabNextGo: valid ? this.go(nextRoute) : () => {},
       rabNextSt: { ...btnBase, opacity: valid ? 1 : 0.35, pointerEvents: valid ? 'auto' : 'none' },
       rabNextLabel: isRab4 ? 'LIHAT ESTIMASI →' : 'LANJUT',
-      gradeSegs, groups, gradeName: s.grade.toUpperCase(),
+      gradeSegs, groups, gradeName: s.grade.toUpperCase(), ...(() => { const totalDisp = this.fmt(r1k(total)); return { totalStr: totalDisp, totalFs: totalDisp.length > 13 ? '15px' : '17px' }; })(),
       rangeLo: this.fmt(r50(total * 0.9)), rangeHi: this.fmt(r50(total * 1.1)),
-      totalStr: this.fmt(r1k(total)), hasilMeta,
+      hasilMeta,
       durStr: this.DUR[s.grade] + ' HARI KERJA',
       discSt, discMark: s.disc ? '✓' : '', toggleDisc: () => this.setState({ disc: !s.disc }),
       ajukanGo: s.disc ? this.go('#/ajukan') : () => {},
